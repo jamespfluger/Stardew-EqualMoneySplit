@@ -1,0 +1,10 @@
+﻿{
+    "Name": "Socialist Money Split",
+    "Author": "James Pfluger",
+    "Version": "1.0.0",
+    "Description": "Splits each the earnings of every item between all connected players.",
+    "UniqueID": "JamesPfluger.SocialistMoneySplit",
+    "EntryDll": "SocialistMoneySplit.dll",
+    "MinimumApiVersion": "3.0.0",
+    "UpdateKeys": []
+}
