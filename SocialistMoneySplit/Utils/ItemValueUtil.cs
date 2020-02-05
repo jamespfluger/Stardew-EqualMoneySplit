@@ -27,11 +27,8 @@ namespace SocialistMoneySplit.Utils
                 int quantity = !isStackSizeChangeType ? item.Stack : ((ItemStackSizeChange)genericItem).OldSize - ((ItemStackSizeChange)genericItem).NewSize;
                 int itemValue = GetAdjustedItemPrice(item);
 
-                SocialismMod.Monitor.Log("ItemValueUtil-ITEMS | Adding " + itemValue + " for removed item: " + item.Name + "x" + quantity);
                 totalValue += itemValue * quantity;
             }
-
-            SocialismMod.Monitor.Log("ItemValueUtil-COLLECTIONVALUE | Total new money: " + totalValue);
 
             return totalValue;
         }

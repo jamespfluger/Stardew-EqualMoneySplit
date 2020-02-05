@@ -23,7 +23,7 @@ namespace SocialistMoneySplit.Network
         /// <param name="recipient"></param>
         public static void SendMessageToFarmer(string address, object payload, long recipient = -1)
         {
-            SocialismMod.Monitor.Log("Sending a message to " + address + " for " + Game1.getFarmer(recipient));
+            SocialismMod.Monitor.Log("Messenger.SendMessageToFarmer() | Local farmer " + Game1.player.Name + " Is sending a message to " + address + " for " + Game1.getFarmer(recipient));
             SocialismMod.Helper.Multiplayer.SendMessage((T)payload, address, new[] { SocialismMod.Helper.Multiplayer.ModID }, recipient != -1 ? new[] { recipient } : null);
         }
 
@@ -69,7 +69,7 @@ namespace SocialistMoneySplit.Network
                 }
 
                 if (intervalsWaited <= 0)
-                    SocialismMod.Monitor.Log("MessageSender.SendMessageToFarmer | A request failed to be retrieved properly");
+                    SocialismMod.Monitor.Log("MessageSender.SendMessageToFarmer() | A request failed to be retrieved properly");
 
                 // We remove the event handler after we received the response
                 SocialismMod.Helper.Events.Multiplayer.ModMessageReceived -= onIfMessageReceived;

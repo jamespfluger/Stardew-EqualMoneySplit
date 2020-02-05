@@ -33,7 +33,7 @@ namespace SocialistMoneySplit.Utils
             moneyReceiver = InitializeMoneyReceiver();
             moneyReceiver.Start();
 
-            SocialismMod.Monitor.Log("MoneyMessengerUtil-INITIALIZE | Initialized the money receiver");
+            SocialismMod.Monitor.Log("MoneyMessengerUtil.Init() | Initialized the money receiver");
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace SocialistMoneySplit.Utils
         {
             NetworkPayload moneyData = new NetworkPayload(newMoney, Game1.player.Name, eventContext);
 
-            SocialismMod.Monitor.Log("MoneyMessengerUtil-SENDING | " + moneyData.Name + " is sending " + moneyData.Money + " to all farmers");
+            SocialismMod.Monitor.Log("MoneyMessengerUtil.SendMoneyUpdateNotification | Local farmer " + Game1.player.Name + " is sending " + newMoney + " to all farmers");
             NetworkUtil<NetworkPayload>.SendMessageToAllFarmers(moneyReceiverName, moneyData);
         }
 
@@ -64,8 +64,8 @@ namespace SocialistMoneySplit.Utils
         {
             return new Receiver<NetworkPayload>(moneyReceiverName, (networkMoneyData) =>
             {
-                SocialismMod.Monitor.Log("MoneyMessengerUtil-RECEIVING | " + Game1.player.Name + " is receiving " + networkMoneyData.Money + " from " + networkMoneyData.Name);
-                SocialismMod.Monitor.Log("MoneyMessengerUtil-RECEIVING | " + Game1.player.Name + " previously had " + Game1.player.Money + " and will now have " + (Game1.player.Money + networkMoneyData.Money));
+                SocialismMod.Monitor.Log("MoneyMessengerUtil.ReceivingMoney | Local farmer " + Game1.player.Name + " is receiving " + networkMoneyData.Money + " from " + networkMoneyData.Name);
+                SocialismMod.Monitor.Log("MoneyMessengerUtil.ReceivingMoney | Local farmer " + Game1.player.Name + " previously had " + Game1.player.Money + " and will now have " + (Game1.player.Money + networkMoneyData.Money));
 
                 if (networkMoneyData.EventContext == EventContext.InventoryChange)
                     Game1.showGlobalMessage(networkMoneyData.Name + " sent you " + networkMoneyData.Money + "g !");

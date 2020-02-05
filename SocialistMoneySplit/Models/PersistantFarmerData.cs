@@ -17,5 +17,9 @@
         /// Money the local Farmer will send to other connected Farmer's
         /// </summary>
         public static int ShareToSend { get; set; }
+        /// <summary>
+        /// Whether or not this is the first day the user is experiencing since they joined
+        /// </summary>
+        public static bool IsFirstDayConnection { get; set; }
     }
 }

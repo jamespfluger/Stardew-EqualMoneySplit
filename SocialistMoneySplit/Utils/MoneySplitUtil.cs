@@ -17,7 +17,7 @@ namespace SocialistMoneySplit.Utils
         {
             int numberOfFarmers = Game1.getOnlineFarmers().Count;
             int moneyPerPlayer = (int)Math.Ceiling(Convert.ToDouble(totalNewMoney) / numberOfFarmers);
-            SocialismMod.Monitor.Log("MoneySplitUtil-GetPerPlayerShare | Each player will receive: " + moneyPerPlayer);
+            SocialismMod.Monitor.Log("MoneySplitUtil.GetPerPlayerShare() | Each player will receive: " + moneyPerPlayer);
             return moneyPerPlayer;
         }
 
@@ -29,7 +29,7 @@ namespace SocialistMoneySplit.Utils
         public static void CorrectLocalPlayer(int totalNewMoney, int moneyPerPlayer)
         {
             // Update the current farmer's money  |  Curr = Curr - (Split Share * (Number of Farmers-1))
-            SocialismMod.Monitor.Log(@"MoneySplitUtil-CorrectLocalPlayer | Local farmer " + Game1.player.Name + " |previous:" + Game1.player.Money   + "|remove:" + totalNewMoney + "|add:" + moneyPerPlayer + "|result:" + (Game1.player.Money - totalNewMoney + moneyPerPlayer));
+            SocialismMod.Monitor.Log("MoneySplitUtil.CorrectLocalPlayer() | Local farmer " + Game1.player.Name + " => (" + Game1.player.Money   + " - " + totalNewMoney + ") + " + moneyPerPlayer + " = " + (Game1.player.Money - totalNewMoney + moneyPerPlayer));
             Game1.player.Money = Game1.player.Money - totalNewMoney + moneyPerPlayer;
         }
     }
