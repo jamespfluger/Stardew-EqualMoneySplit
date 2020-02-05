@@ -1,5 +1,4 @@
-﻿using SocialistMoneySplit.Injectors;
-using SocialistMoneySplit.Models;
+﻿using SocialistMoneySplit.Models;
 using SocialistMoneySplit.Utils;
 using StardewModdingAPI.Events;
 
@@ -12,14 +11,19 @@ namespace SocialistMoneySplit.Events
     {
         /// <summary>
         /// Corrects the local Farmer's money before the save begins to occur
+        /// Also forces the game to handle any messages that have not been handled
         /// </summary>
         /// <param name="sender">The sender of the Saving event</param>
         /// <param name="args">Event arguments for the Saving event</param>
-        [OnSaveStartingInjector]
         public void OnSavingHandler(object sender, SavingEventArgs args)
         {
             QuickLogMoney("SaveEventHandler-SAVING");
+            
+            // Correct the local player's money after they have
             MoneySplitUtil.CorrectLocalPlayer(PersistantFarmerData.ShippingBinMoney, PersistantFarmerData.ShareToSend);
+            
+            // Force the receiver to check for unhandled messages
+            MoneyReceiverUtil.ForceGetUnarrivedMessages();
         }
 
         /// <summary>

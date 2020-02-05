@@ -29,12 +29,11 @@ namespace SocialistMoneySplit.Utils
             // Add the event handler for our specific mod
             SocialismMod.Helper.Events.Multiplayer.ModMessageReceived += NetworkUtil<NetworkPayload>.OnModMessageReceived;
 
-            // THen initialize our specific receiver and start it up
+            // Then initialize our specific receiver and start it up
             moneyReceiver = InitializeMoneyReceiver();
-
+            moneyReceiver.Start();
 
             SocialismMod.Monitor.Log("MoneyMessengerUtil-INITIALIZE | Initialized the money receiver");
-            moneyReceiver.Start();
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
-﻿using SocialistMoneySplit.Injectors;
-using SocialistMoneySplit.Models;
+﻿using SocialistMoneySplit.Models;
+using SocialistMoneySplit.Utils;
 using StardewModdingAPI.Events;
 using StardewValley;
 
@@ -29,22 +29,28 @@ namespace SocialistMoneySplit.Events
         /// </summary>
         /// <param name="sender">The sender of the DayEndingEvent event</param>
         /// <param name="args">Event arguments for the DayEndingEvent event</param>
-        [OnDayEndingInjector]
         public void OnDayEndingHandler(object sender, DayEndingEventArgs args)
         {
             QuickLogMoney("GameLoopEventHandler-EVENT | DayEnding");
+            // Calculate all money that will be received from the shipping bin
+            PersistantFarmerData.ShippingBinMoney = ItemValueUtil.CalculateItemCollectionValue(Game1.player.personalShippingBin);
+            PersistantFarmerData.ShareToSend = MoneySplitUtil.GetPerPlayerShare(PersistantFarmerData.ShippingBinMoney);
+
+            // Still send a notification if no money has changed
+            MoneyReceiverUtil.SendMoneyUpdateNotification(PersistantFarmerData.ShareToSend, MoneyReceiverUtil.EventContext.EndOfDay);
         }
 
         /// <summary>
-        /// Handles the event raised after a new day begins
+        /// Resets the saved value in the shipping bin and the share from that
         /// </summary>
         /// <param name="sender">The sender of the DayStarted event</param>
         /// <param name="args">Event arguments for the DayStarted event</param>
         public void OnDayStartedHandler(object sender, DayStartedEventArgs args)
         {
+            QuickLogMoney("GameLoopEventHandler-EVENT | DayStarted");
+
             PersistantFarmerData.ShareToSend = 0;
             PersistantFarmerData.ShippingBinMoney = 0;
-            QuickLogMoney("GameLoopEventHandler-EVENT | DayStarted");
         }
     }
 }
