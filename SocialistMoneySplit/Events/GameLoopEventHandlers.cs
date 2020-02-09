@@ -1,5 +1,6 @@
 ﻿using SocialistMoneySplit.Models;
 using SocialistMoneySplit.Utils;
+using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 
@@ -17,7 +18,7 @@ namespace SocialistMoneySplit.Events
         /// <param name="args">Event arguments for the UpdateTicking event</param>
         public void OnUpdateTicking(object sender, UpdateTickingEventArgs args)
         {
-            if (!Game1.hasLoadedGame)
+            if (!Context.IsMultiplayer)
                 return;
 
             PersistantFarmerData.PocketMoney = Game1.player.Money;
@@ -31,7 +32,8 @@ namespace SocialistMoneySplit.Events
         /// <param name="args">Event arguments for the DayEndingEvent event</param>
         public void OnDayEndingHandler(object sender, DayEndingEventArgs args)
         {
-            QuickLogMoney("GameLoopEventHandler-EVENT | DayEnding");
+            QuickLogMoney("GameLoopEventHandler | DayEnding");
+
             // Calculate all money that will be received from the shipping bin
             PersistantFarmerData.ShippingBinMoney = ItemValueUtil.CalculateItemCollectionValue(Game1.player.personalShippingBin);
             PersistantFarmerData.ShareToSend = MoneySplitUtil.GetPerPlayerShare(PersistantFarmerData.ShippingBinMoney);
@@ -47,7 +49,7 @@ namespace SocialistMoneySplit.Events
         /// <param name="args">Event arguments for the DayStarted event</param>
         public void OnDayStartedHandler(object sender, DayStartedEventArgs args)
         {
-            QuickLogMoney("GameLoopEventHandler-EVENT | DayStarted");
+            QuickLogMoney("GameLoopEventHandler | DayStarted");
 
             PersistantFarmerData.ShareToSend = 0;
             PersistantFarmerData.ShippingBinMoney = 0;

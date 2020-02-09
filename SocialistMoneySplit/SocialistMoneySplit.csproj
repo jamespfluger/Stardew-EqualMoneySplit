@@ -99,6 +99,7 @@
     <Compile Include="Models\NetworkPayload.cs" />
     <Compile Include="Network\Messenger.cs" />
     <Compile Include="Network\PayloadHandler.cs" />
+    <Compile Include="Models\Constants.cs" />
     <Compile Include="SocialismMod.cs" />
     <Compile Include="Events\GameLoopEventHandlers.cs" />
     <Compile Include="Events\InventoryEventHandlers.cs" />
