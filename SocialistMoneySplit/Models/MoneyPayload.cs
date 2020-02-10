@@ -1,11 +1,11 @@
-﻿using static SocialistMoneySplit.Utils.MoneyReceiverUtil;
+﻿using static SocialistMoneySplit.Models.Constants;
 
 namespace SocialistMoneySplit.Models
 {
     /// <summary>
     /// Context of Player/Money to be sent to other players
     /// </summary>
-    public class NetworkPayload
+    public class MoneyPayload
     {
         /// <summary>
         /// Share of Money to be sent to other Farmers
@@ -20,14 +20,27 @@ namespace SocialistMoneySplit.Models
         /// </summary>
         public EventContext EventContext { get; set; }
 
-        public NetworkPayload() { }
+        public MoneyPayload() { }
+
         /// <summary>
         /// Context of Farmer/Money information to be sent to other Farmers
         /// </summary>
         /// <param name="money">Share of Money to be sent to other Farmers</param>
         /// <param name="name">Name of Farmer sending the Money</param>
+        public MoneyPayload(int money, string name)
+        {
+            this.Money = money;
+            this.Name = name;
+        }
+
+        /// <summary>
+        /// Context of Farmer/Money/Event information to be sent to other Farmers
+        /// </summary>
+        /// <param name="money">Share of Money to be sent to other Farmers</param>
+        /// <param name="name">Name of Farmer sending the Money</param>
         /// <param name="eventContext">The event that is sending the money</param>
-        public NetworkPayload(int money, string name, EventContext eventContext)
+        /// 
+        public MoneyPayload(int money, string name, EventContext eventContext)
         {
             this.Money = money;
             this.Name = name;
