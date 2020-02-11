@@ -1,4 +1,5 @@
-﻿using NetworkMessenger.Models;
+﻿using SocialistMoneySplit.Models;
+using SocialistMoneySplit.Networking;
 using StardewModdingAPI.Events;
 using StardewValley;
 using System;
@@ -6,21 +7,23 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NetworkMessenger.Messengers
+namespace SocialistMoneySplit.Abstractions
 {
+    /// <summary>
+    /// Handles outgoing messages to Farmers and the corresponding responses 
+    /// </summary>
     public abstract class BaseMessenger
     {
-
         /// <summary>
         /// Sends a message to a given address
         /// </summary>
         /// <param name="address">Destination address to check for message</param>
         /// <param name="payload">Payload data to be delivered to the Farmer</param>
         /// <param name="recipient"></param>
-        public void SendCoreMessageToFarmer(string address, object payload, long recipient = -1)
+        public virtual void SendCoreMessageToFarmer(string address, object payload, long recipient = -1)
         {
-            Network.Logger.Log("Messenger.SendMessageToFarmer() | Local farmer " + Game1.player.Name + " Is sending a message to " + address + " for " + Game1.getFarmer(recipient));
-            Network.SMAPI.Multiplayer.SendMessage(payload, address, new[] { Network.SMAPI.Multiplayer.ModID }, recipient != -1 ? new[] { recipient } : null);
+            SocialismMod.Logger.Log("Messenger.SendMessageToFarmer() | Local farmer " + Game1.player.Name + " Is sending a message to " + address + " for " + Game1.getFarmer(recipient));
+            SocialismMod.SMAPI.Multiplayer.SendMessage(payload, address, new[] { SocialismMod.SMAPI.Multiplayer.ModID }, recipient != -1 ? new[] { recipient } : null);
         }
 
         /// <summary>
@@ -28,7 +31,7 @@ namespace NetworkMessenger.Messengers
         /// </summary>
         /// <param name="address">Destination address to send the payload</param>
         /// <param name="payload">Payload data to be delivered to the Farmer</param>
-        public void SendCoreMessageToAllFarmers(string address, object payload)
+        public virtual void SendCoreMessageToAllFarmers(string address, object payload)
         {
             SendPayloadToFarmer(address, payload, -1);
         }
@@ -50,8 +53,8 @@ namespace NetworkMessenger.Messengers
                 object receivedPayload = null;
 
                 // We need to set up a specific event handler for this address
-                EventHandler<ModMessageReceivedEventArgs> onIfMessageReceived = (sender, args) => CheckIfMessageWasDelivered(returnAddress, ref receivedPayload, ref hasReceivedPayload);
-                Network.SMAPI.Events.Multiplayer.ModMessageReceived += onIfMessageReceived;
+                EventHandler<ModMessageReceivedEventArgs> onIfMessageReceived = (sender, args) => CheckForMessageDelivery(returnAddress, ref receivedPayload, ref hasReceivedPayload);
+                SocialismMod.SMAPI.Events.Multiplayer.ModMessageReceived += onIfMessageReceived;
 
                 // Send the message to the farmer
                 SendCoreMessageToFarmer(address, payload, recipient);
@@ -65,10 +68,10 @@ namespace NetworkMessenger.Messengers
                 }
 
                 if (intervalsWaited >= 1000)
-                    Network.Logger.Log("MessageSender.SendMessageToFarmer() | A request failed to be retrieved properly");
+                    SocialismMod.Logger.Log("MessageSender.SendMessageToFarmer() | A request failed to be retrieved properly");
 
                 // We remove the event handler after we received the response
-                Network.SMAPI.Events.Multiplayer.ModMessageReceived -= onIfMessageReceived;
+                SocialismMod.SMAPI.Events.Multiplayer.ModMessageReceived -= onIfMessageReceived;
             });
         }
 
@@ -78,9 +81,9 @@ namespace NetworkMessenger.Messengers
         /// <param name="address">Destination address to check for message</param>
         /// <param name="resultPayload">Result of a received message</param>
         /// <param name="hasReceivedPayload">Whether or not a message has been received</param>
-        private void CheckIfMessageWasDelivered(string address, ref object resultPayload, ref bool hasReceivedPayload)
+        private void CheckForMessageDelivery(string address, ref object resultPayload, ref bool hasReceivedPayload)
         {
-            foreach (object retrievedPayload in PayloadRetriever.RetrievePayloads(address))
+            foreach (object retrievedPayload in Network.Instance.RetrieveMessages(address))
             {
                 resultPayload = retrievedPayload;
                 hasReceivedPayload = true;

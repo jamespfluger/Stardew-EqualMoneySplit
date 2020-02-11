@@ -1,6 +1,4 @@
-﻿using static SocialistMoneySplit.Models.Constants;
-
-namespace SocialistMoneySplit.Models
+﻿namespace SocialistMoneySplit.Models
 {
     /// <summary>
     /// Context of Player/Money to be sent to other players

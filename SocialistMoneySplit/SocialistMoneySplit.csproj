@@ -75,9 +75,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Framework.Portable.3.7.1.189\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -95,21 +92,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\BaseEventHandlers.cs" />
-    <Compile Include="Models\NetworkPayload.cs" />
-    <Compile Include="Network\Messenger.cs" />
-    <Compile Include="Network\PayloadHandler.cs" />
+    <Compile Include="Abstractions\BaseEventHandlers.cs" />
+    <Compile Include="Abstractions\BaseMessenger.cs" />
+    <Compile Include="Abstractions\BaseReceiver.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\MoneyPayload.cs" />
+    <Compile Include="Network\Communicators\MoneyReceiver.cs" />
     <Compile Include="SocialismMod.cs" />
     <Compile Include="Events\GameLoopEventHandlers.cs" />
     <Compile Include="Events\InventoryEventHandlers.cs" />
     <Compile Include="Events\SaveEventHandlers.cs" />
     <Compile Include="Models\PersistantFarmerData.cs" />
-    <Compile Include="Utils\NetworkUtil.cs" />
+    <Compile Include="Network\Communicators\MoneyMessenger.cs" />
+    <Compile Include="Network\Network.cs" />
     <Compile Include="Models\NetworkMessage.cs" />
-    <Compile Include="Network\Receiver.cs" />
     <Compile Include="Utils\ItemValueUtil.cs" />
-    <Compile Include="Utils\MoneyReceiverUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\MoneySplitUtil.cs" />
   </ItemGroup>

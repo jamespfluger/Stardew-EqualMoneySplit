@@ -1,5 +1,7 @@
 ﻿using SocialistMoneySplit.Events;
-using SocialistMoneySplit.Utils;
+using SocialistMoneySplit.Networking;
+using SocialistMoneySplit.Networking.Communicators;
+using SocialistMoneySplit.Networking.Communicators;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -44,7 +46,7 @@ namespace SocialistMoneySplit
 
         private void FirstDayEventSubscriptions(object sender, DayStartedEventArgs args)
         {
-            if (Context.IsMultiplayer && isFirstDay)
+            if (isFirstDay && Context.IsMultiplayer)
             {
                 // Instantiate all events needed
                 SMAPI.Events.Player.InventoryChanged += inventoryChangedHandler.OnInventoryChanged;
@@ -54,9 +56,17 @@ namespace SocialistMoneySplit
                 SMAPI.Events.GameLoop.Saving += saveEventHandler.OnSavingHandler;
                 SMAPI.Events.GameLoop.Saved += saveEventHandler.OnSavedHandler;
 
+                SMAPI.Events.Multiplayer.ModMessageReceived += Network.Instance.OnModMessageReceived;
+
                 // Start subscribing to the event of returning to the title
                 SMAPI.Events.GameLoop.ReturnedToTitle += ReturnToTitleEventUnsubcriptions;
                 SMAPI.Events.GameLoop.DayStarted -= FirstDayEventSubscriptions;
+
+                // Start any mod message receivers we need
+                StartReceivers();
+
+                // After our first day has started, it is no longer the start of the first day
+                isFirstDay = false;
             }
         }
 
@@ -70,17 +80,27 @@ namespace SocialistMoneySplit
             SMAPI.Events.GameLoop.Saving -= saveEventHandler.OnSavingHandler;
             SMAPI.Events.GameLoop.Saved -= saveEventHandler.OnSavedHandler;
 
+            SMAPI.Events.Multiplayer.ModMessageReceived -= Network.Instance.OnModMessageReceived;
+
             // Re-add the first day event subscriptions
             SMAPI.Events.GameLoop.DayStarted += FirstDayEventSubscriptions;
             SMAPI.Events.GameLoop.ReturnedToTitle -= ReturnToTitleEventUnsubcriptions;
+
+            // Stop any mod message receivers we started
+            StopReceivers();
+
+            // If we exit to the menu, then we will need a new first day setup
+            isFirstDay = true;
         }
 
         private void StartReceivers()
         {
+            MoneyReceiver.Instance.Start();
         }
 
         private void StopReceivers()
         {
+            MoneyReceiver.Instance.Stop();
         }
     }
 }

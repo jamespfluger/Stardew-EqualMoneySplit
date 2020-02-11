@@ -1,4 +1,5 @@
 ﻿using SocialistMoneySplit.Models;
+using SocialistMoneySplit.Networking.Communicators;
 using SocialistMoneySplit.Utils;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -38,7 +39,8 @@ namespace SocialistMoneySplit.Events
             MoneySplitUtil.CorrectLocalPlayer(totalNewMoney, moneyPerPlayer);
 
             // Tell all the other farmers to update their money too
-            MoneyReceiverUtil.SendMoneyUpdateNotification(moneyPerPlayer, MoneyReceiverUtil.EventContext.InventoryChange);
+            MoneyMessenger moneyMessenger = new MoneyMessenger();
+            moneyMessenger.SendWalletNotification(moneyPerPlayer);
         }
     }
 }

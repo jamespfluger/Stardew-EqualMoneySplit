@@ -1,4 +1,6 @@
-﻿using SocialistMoneySplit.Models;
+﻿using SocialistMoneySplit.Abstractions;
+using SocialistMoneySplit.Models;
+using SocialistMoneySplit.Networking.Communicators;
 using SocialistMoneySplit.Utils;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -19,12 +21,13 @@ namespace SocialistMoneySplit.Events
         public void OnSavingHandler(object sender, SavingEventArgs args)
         {
             QuickLogMoney("SaveEventHandler | Saving");
+            SocialismMod.Logger.Log("Current location: " + Game1.player.currentLocation.Name);
 
             // Correct the local player's money after they have
             MoneySplitUtil.CorrectLocalPlayer(PersistantFarmerData.ShippingBinMoney, PersistantFarmerData.ShareToSend);
             
             // Force the receiver to check for unhandled messages
-            MoneyReceiverUtil.ForceGetUnarrivedMessages();
+            MoneyReceiver.Instance.CheckForNewMessages();
         }
 
         /// <summary>
@@ -35,6 +38,7 @@ namespace SocialistMoneySplit.Events
         public void OnSavedHandler(object sender, SavedEventArgs args)
         {
             QuickLogMoney("SaveEventHandler | Saved");
+            SocialismMod.Logger.Log("Current location: " + Game1.player.currentLocation.Name);
         }
 
     }

@@ -1,22 +1,17 @@
-﻿using NetworkMessenger.Models;
-using StardewModdingAPI;
+﻿using SocialistMoneySplit.Models;
 using StardewModdingAPI.Events;
 using StardewValley;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace NetworkMessenger
+namespace SocialistMoneySplit.Networking
 {
     /// <summary>
     /// Utility that sends or receives messages over the Network
     /// </summary>
-    public class Network
+    public partial class Network
     {
-
-        public static IMonitor Logger { get; set; }
-        public static IModHelper SMAPI { get; set; }
-
         /// <summary>
         /// Messages that will be sent or received
         /// </summary>
@@ -58,23 +53,25 @@ namespace NetworkMessenger
         }
 
         /// <summary>
-        /// Sends a message to a single Farmer
-        /// </summary>
-        /// <param name="address">Destination address the message will be sent to</param>
-        /// <param name="payload">Message that will be sent</param>
-        public void SendMessage(string address, object payload, long recipient = -1)
-        {
-            //
-        }
-
-        /// <summary>
-        /// Sends a message to all Farmers
+        /// Checks for new messages from a particular farmer that haven't been handled yet
         /// </summary>
         /// <param name="address">Destination address to check for message</param>
-        /// <param name="payload">Payload to be sent to Farmers</param>
-        public void SendMessageToAllFarmers(string address, object payload)
+        /// <param name="sender">ID of Farmer that sent a message</param>
+        /// <returns></returns>
+        public IEnumerable<NetworkMessage> RetrieveMessages(string address, long sender = -1)
         {
-            //
+            Messages.TryAdd(address, new List<NetworkMessage>());
+
+            List<NetworkMessage> messages = new List<NetworkMessage>(Messages[address]);
+
+            foreach (NetworkMessage message in messages)
+            {
+                if (sender == -1 || sender == message.Sender)
+                {
+                    Network.Instance.Messages[address].Remove(message);
+                    yield return message;
+                }
+            }
         }
     }
 }

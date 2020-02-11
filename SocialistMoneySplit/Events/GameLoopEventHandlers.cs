@@ -1,4 +1,6 @@
-﻿using SocialistMoneySplit.Models;
+﻿using SocialistMoneySplit.Abstractions;
+using SocialistMoneySplit.Models;
+using SocialistMoneySplit.Networking.Communicators;
 using SocialistMoneySplit.Utils;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -33,13 +35,15 @@ namespace SocialistMoneySplit.Events
         public void OnDayEndingHandler(object sender, DayEndingEventArgs args)
         {
             QuickLogMoney("GameLoopEventHandler | DayEnding");
+            SocialismMod.Logger.Log("Current location: " + Game1.player.currentLocation.Name);
 
             // Calculate all money that will be received from the shipping bin
             PersistantFarmerData.ShippingBinMoney = ItemValueUtil.CalculateItemCollectionValue(Game1.player.personalShippingBin);
             PersistantFarmerData.ShareToSend = MoneySplitUtil.GetPerPlayerShare(PersistantFarmerData.ShippingBinMoney);
 
-            // Still send a notification if no money has changed
-            MoneyReceiverUtil.SendMoneyUpdateNotification(PersistantFarmerData.ShareToSend, MoneyReceiverUtil.EventContext.EndOfDay);
+            // Always send a notification, even if no money has changed
+            MoneyMessenger moneyMessenger = new MoneyMessenger();
+            moneyMessenger.SendShippingBinNotification(PersistantFarmerData.ShareToSend);
         }
 
         /// <summary>
@@ -50,6 +54,7 @@ namespace SocialistMoneySplit.Events
         public void OnDayStartedHandler(object sender, DayStartedEventArgs args)
         {
             QuickLogMoney("GameLoopEventHandler | DayStarted");
+            SocialismMod.Logger.Log("Current location: " + Game1.player.currentLocation.Name);
 
             PersistantFarmerData.ShareToSend = 0;
             PersistantFarmerData.ShippingBinMoney = 0;
