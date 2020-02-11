@@ -1,7 +1,6 @@
 ﻿using SocialistMoneySplit.Events;
 using SocialistMoneySplit.Networking;
 using SocialistMoneySplit.Networking.Communicators;
-using SocialistMoneySplit.Networking.Communicators;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -23,9 +22,9 @@ namespace SocialistMoneySplit
         public static IModHelper SMAPI { get; private set; }
 
         // Initialize all event handler classes
-        private InventoryEventHandlers inventoryChangedHandler = new InventoryEventHandlers();
-        private GameLoopEventHandlers gameLoopHandler = new GameLoopEventHandlers();
-        private SaveEventHandlers saveEventHandler = new SaveEventHandlers();
+        private readonly InventoryEventHandlers inventoryChangedHandler = new InventoryEventHandlers();
+        private readonly GameLoopEventHandlers gameLoopHandler = new GameLoopEventHandlers();
+        private readonly SaveEventHandlers saveEventHandler = new SaveEventHandlers();
         
         /// <summary>
         /// Checks if this is the first day the user is connecting for

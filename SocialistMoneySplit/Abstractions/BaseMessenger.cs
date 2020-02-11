@@ -37,12 +37,11 @@ namespace SocialistMoneySplit.Abstractions
         }
 
         /// <summary>
-        /// 
+        /// Sends a generic object payload to a given farmer
         /// </summary>
         /// <param name="address"></param>
         /// <param name="payload"></param>
         /// <param name="recipient"></param>
-        /// <returns></returns>
         private Task SendPayloadToFarmer(string address, object payload, long recipient)
         {
             return Task.Run(() =>
@@ -76,7 +75,7 @@ namespace SocialistMoneySplit.Abstractions
         }
 
         /// <summary>
-        /// Check to see if the message was delivered
+        /// Check to see if a message was delivered
         /// </summary>
         /// <param name="address">Destination address to check for message</param>
         /// <param name="resultPayload">Result of a received message</param>

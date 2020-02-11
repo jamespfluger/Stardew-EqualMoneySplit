@@ -20,9 +20,6 @@ namespace SocialistMoneySplit.Events
         /// <param name="args">Event arguments for the UpdateTicking event</param>
         public void OnUpdateTicking(object sender, UpdateTickingEventArgs args)
         {
-            if (!Context.IsMultiplayer)
-                return;
-
             PersistantFarmerData.PocketMoney = Game1.player.Money;
         }
 
@@ -35,7 +32,6 @@ namespace SocialistMoneySplit.Events
         public void OnDayEndingHandler(object sender, DayEndingEventArgs args)
         {
             QuickLogMoney("GameLoopEventHandler | DayEnding");
-            SocialismMod.Logger.Log("Current location: " + Game1.player.currentLocation.Name);
 
             // Calculate all money that will be received from the shipping bin
             PersistantFarmerData.ShippingBinMoney = ItemValueUtil.CalculateItemCollectionValue(Game1.player.personalShippingBin);
@@ -54,7 +50,6 @@ namespace SocialistMoneySplit.Events
         public void OnDayStartedHandler(object sender, DayStartedEventArgs args)
         {
             QuickLogMoney("GameLoopEventHandler | DayStarted");
-            SocialismMod.Logger.Log("Current location: " + Game1.player.currentLocation.Name);
 
             PersistantFarmerData.ShareToSend = 0;
             PersistantFarmerData.ShippingBinMoney = 0;

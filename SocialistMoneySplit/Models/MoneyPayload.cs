@@ -18,8 +18,6 @@
         /// </summary>
         public EventContext EventContext { get; set; }
 
-        public MoneyPayload() { }
-
         /// <summary>
         /// Context of Farmer/Money information to be sent to other Farmers
         /// </summary>

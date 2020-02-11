@@ -25,8 +25,8 @@ namespace SocialistMoneySplit.Events
 
             // Calculate all money gained from removed items or items that decreased their stack size
             int totalNewMoney = 0;
-            totalNewMoney = totalNewMoney + ItemValueUtil.CalculateItemCollectionValue(args.Removed, false);
-            totalNewMoney = totalNewMoney + ItemValueUtil.CalculateItemCollectionValue(args.QuantityChanged.Where(i => i.NewSize < i.OldSize), true);
+            totalNewMoney += ItemValueUtil.CalculateItemCollectionValue(args.Removed, false);
+            totalNewMoney += ItemValueUtil.CalculateItemCollectionValue(args.QuantityChanged.Where(i => i.NewSize < i.OldSize), true);
 
             // Short circuit if the items removed don't have a value
             if (totalNewMoney == 0)

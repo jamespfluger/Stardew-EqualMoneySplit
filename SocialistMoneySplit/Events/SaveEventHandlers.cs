@@ -21,7 +21,6 @@ namespace SocialistMoneySplit.Events
         public void OnSavingHandler(object sender, SavingEventArgs args)
         {
             QuickLogMoney("SaveEventHandler | Saving");
-            SocialismMod.Logger.Log("Current location: " + Game1.player.currentLocation.Name);
 
             // Correct the local player's money after they have
             MoneySplitUtil.CorrectLocalPlayer(PersistantFarmerData.ShippingBinMoney, PersistantFarmerData.ShareToSend);
@@ -38,7 +37,6 @@ namespace SocialistMoneySplit.Events
         public void OnSavedHandler(object sender, SavedEventArgs args)
         {
             QuickLogMoney("SaveEventHandler | Saved");
-            SocialismMod.Logger.Log("Current location: " + Game1.player.currentLocation.Name);
         }
 
     }
