@@ -10,7 +10,7 @@ namespace SocialistMoneySplit.Networking
     /// <summary>
     /// Utility that sends or receives messages over the Network
     /// </summary>
-    public partial class Network
+    public class Network
     {
         /// <summary>
         /// Messages that will be sent or received
