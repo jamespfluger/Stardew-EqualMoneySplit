@@ -1,6 +1,4 @@
-﻿using StardewValley;
-
-namespace SocialistMoneySplit.Models
+﻿namespace SocialistMoneySplit.Models
 {
     /// <summary>
     /// Context of Payload that is sent over Network

@@ -1,5 +1,7 @@
 ﻿.vs
 packages
-PyTK
 SocialistMoneySplit/bin
 SocialistMoneySplit/obj
+*.csproj.user
+NetworkMessenger/bin
+NetworkMessenger/obj

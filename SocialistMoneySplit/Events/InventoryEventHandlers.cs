@@ -1,4 +1,5 @@
 ﻿using SocialistMoneySplit.Models;
+using SocialistMoneySplit.Networking.Communicators;
 using SocialistMoneySplit.Utils;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -24,8 +25,8 @@ namespace SocialistMoneySplit.Events
 
             // Calculate all money gained from removed items or items that decreased their stack size
             int totalNewMoney = 0;
-            totalNewMoney = totalNewMoney + ItemValueUtil.CalculateItemCollectionValue(args.Removed, false);
-            totalNewMoney = totalNewMoney + ItemValueUtil.CalculateItemCollectionValue(args.QuantityChanged.Where(i => i.NewSize < i.OldSize), true);
+            totalNewMoney += ItemValueUtil.CalculateItemCollectionValue(args.Removed, false);
+            totalNewMoney += ItemValueUtil.CalculateItemCollectionValue(args.QuantityChanged.Where(i => i.NewSize < i.OldSize), true);
 
             // Short circuit if the items removed don't have a value
             if (totalNewMoney == 0)
@@ -38,7 +39,8 @@ namespace SocialistMoneySplit.Events
             MoneySplitUtil.CorrectLocalPlayer(totalNewMoney, moneyPerPlayer);
 
             // Tell all the other farmers to update their money too
-            MoneyReceiverUtil.SendMoneyUpdateNotification(moneyPerPlayer, MoneyReceiverUtil.EventContext.InventoryChange);
+            MoneyMessenger moneyMessenger = new MoneyMessenger();
+            moneyMessenger.SendWalletNotification(moneyPerPlayer);
         }
     }
 }

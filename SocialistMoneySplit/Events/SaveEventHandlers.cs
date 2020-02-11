@@ -1,6 +1,9 @@
-﻿using SocialistMoneySplit.Models;
+﻿using SocialistMoneySplit.Abstractions;
+using SocialistMoneySplit.Models;
+using SocialistMoneySplit.Networking.Communicators;
 using SocialistMoneySplit.Utils;
 using StardewModdingAPI.Events;
+using StardewValley;
 
 namespace SocialistMoneySplit.Events
 {
@@ -17,13 +20,13 @@ namespace SocialistMoneySplit.Events
         /// <param name="args">Event arguments for the Saving event</param>
         public void OnSavingHandler(object sender, SavingEventArgs args)
         {
-            QuickLogMoney("SaveEventHandler-SAVING");
-            
+            QuickLogMoney("SaveEventHandler | Saving");
+
             // Correct the local player's money after they have
             MoneySplitUtil.CorrectLocalPlayer(PersistantFarmerData.ShippingBinMoney, PersistantFarmerData.ShareToSend);
             
             // Force the receiver to check for unhandled messages
-            MoneyReceiverUtil.ForceGetUnarrivedMessages();
+            MoneyReceiver.Instance.CheckForNewMessages();
         }
 
         /// <summary>
@@ -33,7 +36,7 @@ namespace SocialistMoneySplit.Events
         /// <param name="args">Event arguments for the Saved event</param>
         public void OnSavedHandler(object sender, SavedEventArgs args)
         {
-            QuickLogMoney("SaveEventHandler-SAVED");
+            QuickLogMoney("SaveEventHandler | Saved");
         }
 
     }
