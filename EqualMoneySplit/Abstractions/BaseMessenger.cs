@@ -1,5 +1,5 @@
-﻿using SocialistMoneySplit.Models;
-using SocialistMoneySplit.Networking;
+﻿using EqualMoneySplit.Models;
+using EqualMoneySplit.Networking;
 using StardewModdingAPI.Events;
 using StardewValley;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SocialistMoneySplit.Abstractions
+namespace EqualMoneySplit.Abstractions
 {
     /// <summary>
     /// Handles outgoing messages to Farmers and the corresponding responses 
@@ -22,8 +22,8 @@ namespace SocialistMoneySplit.Abstractions
         /// <param name="recipient"></param>
         public virtual void SendCoreMessageToFarmer(string address, object payload, long recipient = -1)
         {
-            SocialismMod.Logger.Log("Messenger.SendMessageToFarmer() | Local farmer " + Game1.player.Name + " Is sending a message to " + address + " for " + Game1.getFarmer(recipient));
-            SocialismMod.SMAPI.Multiplayer.SendMessage(payload, address, new[] { SocialismMod.SMAPI.Multiplayer.ModID }, recipient != -1 ? new[] { recipient } : null);
+            EqualMoneyMod.Logger.Log("Messenger.SendMessageToFarmer() | Local farmer " + Game1.player.Name + " Is sending a message to " + address + " for " + Game1.getFarmer(recipient));
+            EqualMoneyMod.SMAPI.Multiplayer.SendMessage(payload, address, new[] { EqualMoneyMod.SMAPI.Multiplayer.ModID }, recipient != -1 ? new[] { recipient } : null);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace SocialistMoneySplit.Abstractions
 
                 // We need to set up a specific event handler for this address
                 EventHandler<ModMessageReceivedEventArgs> onIfMessageReceived = (sender, args) => CheckForMessageDelivery(returnAddress, ref receivedPayload, ref hasReceivedPayload);
-                SocialismMod.SMAPI.Events.Multiplayer.ModMessageReceived += onIfMessageReceived;
+                EqualMoneyMod.SMAPI.Events.Multiplayer.ModMessageReceived += onIfMessageReceived;
 
                 // Send the message to the farmer
                 SendCoreMessageToFarmer(address, payload, recipient);
@@ -67,10 +67,10 @@ namespace SocialistMoneySplit.Abstractions
                 }
 
                 if (intervalsWaited >= 1000)
-                    SocialismMod.Logger.Log("MessageSender.SendMessageToFarmer() | A request failed to be retrieved properly");
+                    EqualMoneyMod.Logger.Log("MessageSender.SendMessageToFarmer() | A request failed to be retrieved properly");
 
                 // We remove the event handler after we received the response
-                SocialismMod.SMAPI.Events.Multiplayer.ModMessageReceived -= onIfMessageReceived;
+                EqualMoneyMod.SMAPI.Events.Multiplayer.ModMessageReceived -= onIfMessageReceived;
             });
         }
 

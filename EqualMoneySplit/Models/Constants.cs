@@ -1,4 +1,4 @@
-﻿namespace SocialistMoneySplit.Models
+﻿namespace EqualMoneySplit.Models
 {
     /// <summary>
     /// Type of event triggering an action
@@ -17,6 +17,6 @@
         /// <summary>
         /// Base address mods send/receive from
         /// </summary>
-        public static string ModReceiverAddress { get; private set; } = "SocialistMoneySplit.Receiver";
+        public static string ModReceiverAddress { get; private set; } = "EqualMoneySplit.Receiver";
     }
 }

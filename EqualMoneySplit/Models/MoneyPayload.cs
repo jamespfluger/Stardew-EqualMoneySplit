@@ -1,4 +1,4 @@
-﻿namespace SocialistMoneySplit.Models
+﻿namespace EqualMoneySplit.Models
 {
     /// <summary>
     /// Context of Player/Money to be sent to other players

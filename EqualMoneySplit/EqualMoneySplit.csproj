@@ -7,8 +7,8 @@
     <ProjectGuid>{5C4633C5-4E17-42C0-B0D2-60B7220EA6E6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SocialistMoneySplit</RootNamespace>
-    <AssemblyName>SocialistMoneySplit</AssemblyName>
+    <RootNamespace>EqualMoneySplit</RootNamespace>
+    <AssemblyName>EqualMoneySplit</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -101,7 +101,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\MoneyPayload.cs" />
     <Compile Include="Network\Communicators\MoneyReceiver.cs" />
-    <Compile Include="SocialismMod.cs" />
+    <Compile Include="EqualMoneyMod.cs" />
     <Compile Include="Events\GameLoopEventHandlers.cs" />
     <Compile Include="Events\InventoryEventHandlers.cs" />
     <Compile Include="Events\SaveEventHandlers.cs" />

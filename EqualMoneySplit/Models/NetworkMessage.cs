@@ -1,4 +1,4 @@
-﻿namespace SocialistMoneySplit.Models
+﻿namespace EqualMoneySplit.Models
 {
     /// <summary>
     /// Context of Payload that is sent over Network

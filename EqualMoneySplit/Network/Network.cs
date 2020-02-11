@@ -1,11 +1,11 @@
-﻿using SocialistMoneySplit.Models;
+﻿using EqualMoneySplit.Models;
 using StardewModdingAPI.Events;
 using StardewValley;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace SocialistMoneySplit.Networking
+namespace EqualMoneySplit.Networking
 {
     /// <summary>
     /// Utility that sends or receives messages over the Network

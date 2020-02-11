@@ -1,16 +1,16 @@
-﻿using SocialistMoneySplit.Events;
-using SocialistMoneySplit.Networking;
-using SocialistMoneySplit.Networking.Communicators;
+﻿using EqualMoneySplit.Events;
+using EqualMoneySplit.Networking;
+using EqualMoneySplit.Networking.Communicators;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 
-namespace SocialistMoneySplit
+namespace EqualMoneySplit
 {
     /// <summary>
     /// Mod used to evenly split money earned from selling items between farmers
     /// </summary>
-    public class SocialismMod : Mod
+    public class EqualMoneyMod : Mod
     {
         /// <summary>
         /// The SMAPI API used for monitoring and logging
@@ -32,7 +32,7 @@ namespace SocialistMoneySplit
         private bool isFirstDay = true;
 
         /// <summary>
-        /// Entry point of SocialismMod
+        /// Entry point of EqualMoneyMod
         /// </summary>
         /// <param name="helper"></param>
         public override void Entry(IModHelper helper)
