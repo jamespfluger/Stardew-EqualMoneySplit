@@ -1,10 +1,10 @@
-﻿using SocialistMoneySplit.Models;
-using SocialistMoneySplit.Networking;
+﻿using EqualMoneySplit.Models;
+using EqualMoneySplit.Networking;
 using StardewModdingAPI.Events;
 using System;
 using System.Threading.Tasks;
 
-namespace SocialistMoneySplit.Abstractions
+namespace EqualMoneySplit.Abstractions
 {
     public abstract class BaseReceiver
     {
@@ -28,7 +28,7 @@ namespace SocialistMoneySplit.Abstractions
         }
 
         /// <summary>
-        /// Initializes the receiver that will fire when the "SocialistMoneySplit.MoneyReceiver" message is sent
+        /// Initializes the receiver that will fire when the "EqualMoneySplit.MoneyReceiver" message is sent
         /// </summary>
         /// <returns>The action to be performed when a response is received</returns>
         public abstract Action<object> CreateHandler();
@@ -38,7 +38,7 @@ namespace SocialistMoneySplit.Abstractions
         /// </summary>
         public virtual void Start()
         {
-            SocialismMod.SMAPI.Events.GameLoop.UpdateTicked += CheckForNewMessages;
+            EqualMoneyMod.SMAPI.Events.GameLoop.UpdateTicked += CheckForNewMessages;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace SocialistMoneySplit.Abstractions
         /// </summary>
         public virtual void Stop()
         {
-            SocialismMod.SMAPI.Events.GameLoop.UpdateTicked -= CheckForNewMessages;
+            EqualMoneyMod.SMAPI.Events.GameLoop.UpdateTicked -= CheckForNewMessages;
         }
 
         /// <summary>

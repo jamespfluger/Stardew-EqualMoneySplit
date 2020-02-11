@@ -3,7 +3,7 @@ using StardewValley;
 using System;
 using System.Collections.Generic;
 
-namespace SocialistMoneySplit.Utils
+namespace EqualMoneySplit.Utils
 {
     /// <summary>
     /// Utility used to calculate value of core Stardew Item objects

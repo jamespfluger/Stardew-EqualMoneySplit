@@ -1,12 +1,12 @@
-﻿using SocialistMoneySplit.Abstractions;
-using SocialistMoneySplit.Models;
-using SocialistMoneySplit.Networking.Communicators;
-using SocialistMoneySplit.Utils;
+﻿using EqualMoneySplit.Abstractions;
+using EqualMoneySplit.Models;
+using EqualMoneySplit.Networking.Communicators;
+using EqualMoneySplit.Utils;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 
-namespace SocialistMoneySplit.Events
+namespace EqualMoneySplit.Events
 {
     /// <summary>
     /// Handles events related to game loops

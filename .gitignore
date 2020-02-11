@@ -1,7 +1,5 @@
 ﻿.vs
 packages
-SocialistMoneySplit/bin
-SocialistMoneySplit/obj
 *.csproj.user
-NetworkMessenger/bin
-NetworkMessenger/obj
+EqualMoneySplit/obj
+EqualMoneySplit/bin

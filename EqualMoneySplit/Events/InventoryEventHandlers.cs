@@ -1,11 +1,11 @@
-﻿using SocialistMoneySplit.Models;
-using SocialistMoneySplit.Networking.Communicators;
-using SocialistMoneySplit.Utils;
+﻿using EqualMoneySplit.Models;
+using EqualMoneySplit.Networking.Communicators;
+using EqualMoneySplit.Utils;
 using StardewModdingAPI.Events;
 using StardewValley;
 using System.Linq;
 
-namespace SocialistMoneySplit.Events
+namespace EqualMoneySplit.Events
 {
     /// <summary>
     /// Handles events related to inventory changes

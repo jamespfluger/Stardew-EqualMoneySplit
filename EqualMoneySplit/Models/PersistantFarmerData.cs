@@ -1,4 +1,4 @@
-﻿namespace SocialistMoneySplit.Models
+﻿namespace EqualMoneySplit.Models
 {
     /// <summary>
     /// Contains information on the local Farmer's past member values
