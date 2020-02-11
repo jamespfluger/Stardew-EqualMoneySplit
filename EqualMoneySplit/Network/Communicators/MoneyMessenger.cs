@@ -10,7 +10,6 @@ namespace EqualMoneySplit.Networking.Communicators
         /// Sends all farmers the "EqualMoneySplit.MoneyReceiver" message to tell them to update their money
         /// </summary>
         /// <param name="newMoney">The amount of money for each farmer to receive</param>
-        /// <param name="eventContext">THhe event triggering the money update</param>
         public void SendWalletNotification(int newMoney)
         {
             MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.InventoryChanged);
@@ -23,7 +22,6 @@ namespace EqualMoneySplit.Networking.Communicators
         /// Sends all farmers the "EqualMoneySplit.MoneyReceiver" message to tell them to update their money
         /// </summary>
         /// <param name="newMoney">The amount of money for each farmer to receive</param>
-        /// <param name="eventContext">THhe event triggering the money update</param>
         public void SendShippingBinNotification(int newMoney)
         {
             MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.EndOfDay);

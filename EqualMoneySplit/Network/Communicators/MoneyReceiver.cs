@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using EqualMoneySplit.Abstractions;
+﻿using EqualMoneySplit.Abstractions;
 using EqualMoneySplit.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using StardewValley;
 using System;
 

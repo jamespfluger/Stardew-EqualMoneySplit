@@ -3,7 +3,6 @@ using EqualMoneySplit.Networking;
 using EqualMoneySplit.Networking.Communicators;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using StardewValley;
 
 namespace EqualMoneySplit
 {
@@ -92,11 +91,17 @@ namespace EqualMoneySplit
             isFirstDay = true;
         }
 
+        /// <summary>
+        /// Start any network receivers needed
+        /// </summary>
         private void StartReceivers()
         {
             MoneyReceiver.Instance.Start();
         }
 
+        /// <summary>
+        /// Stop the receivers we started earlier
+        /// </summary>
         private void StopReceivers()
         {
             MoneyReceiver.Instance.Stop();
