@@ -39,6 +39,6 @@ steps:
 
       Set-Location "..\"
       git add "EqualMoneySplit\manifest.json"
-      git commit "Updating manifest version"
+      git commit
       git push
 
