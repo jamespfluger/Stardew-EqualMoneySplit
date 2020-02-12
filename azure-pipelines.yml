@@ -41,5 +41,5 @@ steps:
 
       git add "EqualMoneySplit\manifest.json"
       git commit -m "Updating manifest.json version number"
-      git push
+      git push master
 
