@@ -11,11 +11,8 @@
 # Declare the path to the manifest
 $PathToManifest =  $PSScriptRoot + "\manifest.json"
 
-Set-Location "EqualMoneySplit"
-Get-ChildItem
-
 # Load the manifest.json file as a JSON object 
-$Manifest = Get-Content "manifest.json" | ConvertFrom-Json
+$Manifest = Get-Content $PathToManifest | ConvertFrom-Json
 
 # Get the old minor build version
 [String]$OldBuildVersion = $Manifest.Version
