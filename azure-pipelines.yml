@@ -25,14 +25,10 @@ steps:
     script: |
       $env:GIT_REDIRECT_STDERR = '2>&1'
 
-      git config --global user.email "me@jamespfluger.com"
-      git config --global user.name "James Pfluger"
-
       git fetch
       git checkout master
 
-      Set-Location "EqualMoneySplit"
-      $Manifest = Get-Content "manifest.json" | ConvertFrom-Json
+      $Manifest = Get-Content "EqualMoneySplit\manifest.json" | ConvertFrom-Json
       
       [String]$OldBuildVersion = $Manifest.Version
       $BuildVersionArray = @($OldBuildVersion.Split('.'))
@@ -43,7 +39,6 @@ steps:
       $Manifest.Version = $BuildVersionArray -Join "."
       $Manifest | ConvertTo-Json | Set-Content "manifest.json"
 
-      Set-Location "..\"
       git add "EqualMoneySplit\manifest.json"
       git commit -m "Updating manifest.json version number"
       git push
