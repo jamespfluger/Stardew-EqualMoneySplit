@@ -21,6 +21,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      $env:GIT_REDIRECT_STDERR = '2>&1'
       git fetch
       git checkout master
 
