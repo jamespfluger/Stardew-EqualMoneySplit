@@ -30,7 +30,7 @@ steps:
       git config --global user.name "James Pfluger"
 
       git fetch
-      git checkout origin/master
+      git checkout master
 
       Set-Location "EqualMoneySplit"
 
