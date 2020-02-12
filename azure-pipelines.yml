@@ -33,3 +33,5 @@ steps:
       $Manifest.Version = $BuildVersionArray -Join "."
       $Manifest | ConvertTo-Json | Set-Content "manifest.json"
 
+      git push
+
