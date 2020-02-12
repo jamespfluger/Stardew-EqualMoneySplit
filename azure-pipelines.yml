@@ -26,7 +26,7 @@ steps:
       $env:GIT_REDIRECT_STDERR = '2>&1'
 
       git fetch
-      git checkout master
+      git checkout origin/master
 
       Set-Location "EqualMoneySplit"
 
