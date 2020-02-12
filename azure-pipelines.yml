@@ -26,8 +26,7 @@ steps:
       git fetch
       git checkout master
 
-      Set-Location "EqualMoneySplit"
-      $Manifest = Get-Content "manifest.json" | ConvertFrom-Json
+      $Manifest = Get-Content "EqualMoneySplit\manifest.json" | ConvertFrom-Json
       
       [String]$OldBuildVersion = $Manifest.Version
       $BuildVersionArray = @($OldBuildVersion.Split('.'))
@@ -36,9 +35,7 @@ steps:
       $BuildVersionArray[-1] = $NewMinorBuildNumber + 1
 
       $Manifest.Version = $BuildVersionArray -Join "."
-      $Manifest | ConvertTo-Json | Set-Content "manifest.json"
-
-      Set-Location "..\"
+      $Manifest | ConvertTo-Json | Set-Content "EqualMoneySplit\manifest.json"
 
       git add "EqualMoneySplit\manifest.json"
       git commit -m "Updating manifest.json version number"
