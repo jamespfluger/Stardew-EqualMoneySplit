@@ -15,31 +15,20 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
-
 
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
       Set-Location "EqualMoneySplit"
-      Get-ChildItem
 
       $Manifest = Get-Content "manifest.json" | ConvertFrom-Json
-
-      Write-Output $Manifest
 
       [String]$OldBuildVersion = $Manifest.Version
       $BuildVersionArray = @($OldBuildVersion.Split('.'))
 
-      Write-Output $OldBuildVersion
-
       [Int]$NewMinorBuildNumber = $BuildVersionArray[-1]
       $BuildVersionArray[-1] = $NewMinorBuildNumber + 1
 
-      Write-Output $NewMinorBuildNumber
-
       $Manifest.Version = $BuildVersionArray -Join "."
-      Write-Output $Manifest.Version
-
       $Manifest | ConvertTo-Json | Set-Content "manifest.json"
