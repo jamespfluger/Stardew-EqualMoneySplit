@@ -38,7 +38,7 @@ steps:
       $Manifest | ConvertTo-Json | Set-Content "manifest.json"
 
       Set-Location "..\"
-      git add "manifest.json"
+      git add "EqualMoneySplit\manifest.json"
       git commit "Updating manifest version"
       git push
 
