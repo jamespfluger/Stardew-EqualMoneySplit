@@ -22,20 +22,24 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Get-ChildItem 
+      Set-Location "EqualMoneySplit"
+      Get-ChildItem
 
-#- task: NuGetCommand@2
-#  inputs:
-#    restoreSolution: '$(solution)'
-#
-#- task: VSBuild@1
-#  inputs:
-#    solution: '$(solution)'
-#    platform: '$(buildPlatform)'
-#    configuration: '$(buildConfiguration)'
-#
-#- task: VSTest@2
-#  inputs:
-#    platform: '$(buildPlatform)'
-#    configuration: '$(buildConfiguration)'
+      $Manifest = Get-Content "manifest.json" | ConvertFrom-Json
 
+      Write-Output $Manifest
+
+      [String]$OldBuildVersion = $Manifest.Version
+      $BuildVersionArray = @($OldBuildVersion.Split('.'))
+
+      Write-Output $OldBuildVersion
+
+      [Int]$NewMinorBuildNumber = $BuildVersionArray[-1]
+      $BuildVersionArray[-1] = $NewMinorBuildNumber + 1
+
+      Write-Output $NewMinorBuildNumber
+
+      $Manifest.Version = $BuildVersionArray -Join "."
+      Write-Output $Manifest.Version
+
+      $Manifest | ConvertTo-Json | Set-Content "manifest.json"
