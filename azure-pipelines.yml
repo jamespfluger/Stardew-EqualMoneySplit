@@ -22,6 +22,10 @@ steps:
     targetType: 'inline'
     script: |
       $env:GIT_REDIRECT_STDERR = '2>&1'
+
+      git config --global user.email "me@jamespfluger.com"
+      git config --global user.name "James Pfluger"
+
       git fetch
       git checkout master
 
@@ -39,6 +43,6 @@ steps:
 
       Set-Location "..\"
       git add "EqualMoneySplit\manifest.json"
-      git commit
+      git commit -m "Updating manifest.json version number"
       git push
 
