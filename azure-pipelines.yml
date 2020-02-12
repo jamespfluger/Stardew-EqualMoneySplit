@@ -16,17 +16,35 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- checkout: self
+  persistCredentials: true
+  clean: true
 
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
+      $env:GIT_REDIRECT_STDERR = '2>&1'
+
+      git fetch
+      git checkout origin/master
+
       Set-Location "EqualMoneySplit"
+
       $Manifest = Get-Content "manifest.json" | ConvertFrom-Json
       
       [String]$OldBuildVersion = $Manifest.Version
       $BuildVersionArray = @($OldBuildVersion.Split('.'))
+
       [Int]$NewMinorBuildNumber = $BuildVersionArray[-1]
       $BuildVersionArray[-1] = $NewMinorBuildNumber + 1
+
       $Manifest.Version = $BuildVersionArray -Join "."
       $Manifest | ConvertTo-Json | Set-Content "manifest.json"
+
+      Set-Location "..\"
+      
+      git add "EqualMoneySplit\manifest.json"
+      git commit -m "Updating manifest.json version number"
+      git push master
+
