@@ -21,6 +21,9 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      git fetch
+      git checkout master
+
       Set-Location "EqualMoneySplit"
       $Manifest = Get-Content "manifest.json" | ConvertFrom-Json
       
@@ -33,5 +36,8 @@ steps:
       $Manifest.Version = $BuildVersionArray -Join "."
       $Manifest | ConvertTo-Json | Set-Content "manifest.json"
 
+      Set-Location "..\"
+      git add "manifest.json"
+      git commit "Updating manifest version"
       git push
 
