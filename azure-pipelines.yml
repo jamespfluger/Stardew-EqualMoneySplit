@@ -18,7 +18,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- checkout: master
+- checkout: self
   persistCredentials: true
 
 - task: PowerShell@2
