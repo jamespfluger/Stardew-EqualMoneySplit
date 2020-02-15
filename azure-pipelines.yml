@@ -11,6 +11,12 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
 steps:
 - checkout: self
   persistCredentials: true
