@@ -11,7 +11,7 @@ The goal of this mod is to help the logistics of each player managing their own 
 1. An item is sold through the shop
 2. Items are sold through the shipping bin at the end of the day
 
-**The following triggers will  _not_ cause money to be distributed:**
+**The following triggers will  _not_ cause money to be split:**
 1. A quest was completed
 2. Money was delivered through the mail
 3. An event gave the player money
