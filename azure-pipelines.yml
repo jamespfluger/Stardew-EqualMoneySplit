@@ -19,24 +19,43 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      
+      # Hide error output
       $env:GIT_REDIRECT_STDERR = '2>&1'
 
+      # Configure user (default as self)
       git config --global user.email "me@jamespfluger.com"
       git config --global user.name "James Pfluger"
-      git fetch
-      git checkout master
 
+      # Clean just in case we have weird files persist
+      git reset --hard origin/master
+      git clean -d -f
+
+      # Get the manifest.json file
       $Manifest = Get-Content "EqualMoneySplit\manifest.json" | ConvertFrom-Json
-      
+
+      # Retrieve the old manifest version
       [String]$OldBuildVersion = $Manifest.Version
       $BuildVersionArray = @($OldBuildVersion.Split('.'))
 
+      # Increment the minor revision number
       [Int]$NewMinorBuildNumber = $BuildVersionArray[-1]
       $BuildVersionArray[-1] = $NewMinorBuildNumber + 1
 
+      # Update the manifest to the new version and save it
       $Manifest.Version = $BuildVersionArray -Join "."
       $Manifest | ConvertTo-Json | Set-Content "EqualMoneySplit\manifest.json"
 
+      # Add the file then commit and push
       git add "EqualMoneySplit\manifest.json"
-      git commit -m "Updating manifest.json version number"
+      git commit -m "Updating manifest.json version number [skip ci]"
+      git push
+
+      # Clean to allow a clean branch switch, just in case
+      git reset --hard origin/master
+      git clean -d -f
+
+      # Checkout the release branch and merge master into it
+      git checkout release
+      git merge master
       git push
