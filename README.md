@@ -35,7 +35,7 @@ After the amount of money is calculated to be
 
 The current player's money is updated locally after sending the messages to other players.
 
-##### The algorithm itself: 
+##### How the algorithm works: 
 The calculation is basic math that simply distributes the amount earned equally, but I have described it below for the sake of transparency. You can find the calculation in `MoneySplitUtil.cs`
 
 1. The amount of money earned is acquired by checking the amount of money the client had in the previous game tick compared to how much they have now:  
