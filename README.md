@@ -25,7 +25,7 @@ The goal of this mod is to help the logistics of each player managing their own 
 - If the player's inventory has changed and their current amount of money is greater than the previous known amount of money, which is updated _every_ game tick.
 - When the day ends, if the value of the items in the player's shipping bin is greater than zero.
 
-##### The following process updates the other player's money:
+##### The following process updates the other players' money:
 
 1. Each player establishes their own listener that constantly checks for any new network messages that are coming from this mod.
 2. When one player earns money and meets the criteria to split the money, they send a SMAPI mod message to every other online player.
