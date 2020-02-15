@@ -1,4 +1,4 @@
-# Equal Money Split
+# Equal Money  Split
 
 ###### Split money earned between each player's wallet automatically!
 
