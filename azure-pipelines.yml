@@ -37,6 +37,9 @@ steps:
       git reset --hard origin/master
       git clean -d -f
 
+      # Checkout master because APL is weird
+      git checkout master
+
       # Get the manifest.json file
       $Manifest = Get-Content "EqualMoneySplit\manifest.json" | ConvertFrom-Json
 
