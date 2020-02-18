@@ -1,4 +1,6 @@
-﻿namespace EqualMoneySplit.Models
+﻿using Newtonsoft.Json;
+
+namespace EqualMoneySplit.Models
 {
     /// <summary>
     /// Context of Player/Money to be sent to other players
@@ -23,6 +25,7 @@
         /// </summary>
         /// <param name="money">Share of Money to be sent to other Farmers</param>
         /// <param name="name">Name of Farmer sending the Money</param>
+        [JsonConstructor]
         public MoneyPayload(int money, string name)
         {
             this.Money = money;
