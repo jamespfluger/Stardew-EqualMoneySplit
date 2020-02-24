@@ -15,6 +15,8 @@ namespace EqualMoneySplit.Networking.Communicators
             MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.InventoryChanged);
             base.SendCoreMessageToAllFarmers(Constants.ModReceiverAddress, moneyData);
 
+            Game1.chatBox.addInfoMessage("You sent every player " + newMoney + "g.");
+
             EqualMoneyMod.Logger.Log("MoneyMessengerUtil.SendWalletNotification | Local farmer " + Game1.player.Name + " is sending " + newMoney + " to all farmers");
         }
 
@@ -26,6 +28,8 @@ namespace EqualMoneySplit.Networking.Communicators
         {
             MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.EndOfDay);
             base.SendCoreMessageToAllFarmers(Constants.ModReceiverAddress, moneyData);
+
+            Game1.chatBox.addInfoMessage("You sent every player " + newMoney + "g.");
 
             EqualMoneyMod.Logger.Log("MoneyMessengerUtil.SendShippingBinNotification | Local farmer " + Game1.player.Name + " is sending " + newMoney + " to all farmers");
         }
