@@ -46,6 +46,9 @@ namespace EqualMoneySplit
         {
             if (isFirstDay && Context.IsMultiplayer)
             {
+                // Start any mod message receivers we need
+                StartReceivers();
+
                 // Instantiate all events needed
                 SMAPI.Events.Player.InventoryChanged += inventoryChangedHandler.OnInventoryChanged;
                 SMAPI.Events.GameLoop.UpdateTicking += gameLoopHandler.OnUpdateTicking;
@@ -59,9 +62,6 @@ namespace EqualMoneySplit
                 // Start subscribing to the event of returning to the title
                 SMAPI.Events.GameLoop.ReturnedToTitle += ReturnToTitleEventUnsubcriptions;
                 SMAPI.Events.GameLoop.DayStarted -= FirstDayEventSubscriptions;
-
-                // Start any mod message receivers we need
-                StartReceivers();
 
                 // After our first day has started, it is no longer the start of the first day
                 isFirstDay = false;
