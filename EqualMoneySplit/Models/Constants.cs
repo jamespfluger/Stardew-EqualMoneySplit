@@ -15,8 +15,8 @@
     public static class Constants
     {
         /// <summary>
-        /// Base address mods send/receive from
+        /// Base address mods send/listen to
         /// </summary>
-        public static string ModReceiverAddress { get; private set; } = "EqualMoneySplit.Receiver";
+        public static string ModListenerAddress { get; private set; } = "EqualMoneySplit.Listener";
     }
 }

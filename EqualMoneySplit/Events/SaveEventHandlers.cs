@@ -24,8 +24,8 @@ namespace EqualMoneySplit.Events
             // Correct the local player's money after they have
             MoneySplitUtil.CorrectLocalPlayer(PersistantFarmerData.ShippingBinMoney, PersistantFarmerData.ShareToSend);
             
-            // Force the receiver to check for unhandled messages
-            MoneyReceiver.Instance.CheckForNewMessages();
+            // Force the listener to check for unhandled messages
+            MoneyListener.Instance.CheckForNewMessages();
         }
 
         /// <summary>

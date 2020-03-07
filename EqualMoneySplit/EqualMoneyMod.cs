@@ -46,8 +46,8 @@ namespace EqualMoneySplit
         {
             if (isFirstDay && Context.IsMultiplayer)
             {
-                // Start any mod message receivers we need
-                StartReceivers();
+                // Start any mod message listeners we need
+                StartListeners();
 
                 // Instantiate all events needed
                 SMAPI.Events.Player.InventoryChanged += inventoryChangedHandler.OnInventoryChanged;
@@ -84,27 +84,27 @@ namespace EqualMoneySplit
             SMAPI.Events.GameLoop.DayStarted += FirstDayEventSubscriptions;
             SMAPI.Events.GameLoop.ReturnedToTitle -= ReturnToTitleEventUnsubcriptions;
 
-            // Stop any mod message receivers we started
-            StopReceivers();
+            // Stop any mod message listeners we started
+            StopListeners();
 
             // If we exit to the menu, then we will need a new first day setup
             isFirstDay = true;
         }
 
         /// <summary>
-        /// Start any network receivers needed
+        /// Start any network listeners needed
         /// </summary>
-        private void StartReceivers()
+        private void StartListeners()
         {
-            MoneyReceiver.Instance.Start();
+            MoneyListener.Instance.Start();
         }
 
         /// <summary>
-        /// Stop the receivers we started earlier
+        /// Stop the listeners we started earlier
         /// </summary>
-        private void StopReceivers()
+        private void StopListeners()
         {
-            MoneyReceiver.Instance.Stop();
+            MoneyListener.Instance.Stop();
         }
     }
 }

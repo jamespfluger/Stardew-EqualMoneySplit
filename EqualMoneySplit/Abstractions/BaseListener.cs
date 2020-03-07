@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EqualMoneySplit.Abstractions
 {
-    public abstract class BaseReceiver
+    public abstract class BaseListener
     {
 
         /// <summary>
@@ -20,15 +20,15 @@ namespace EqualMoneySplit.Abstractions
         public abstract string Address { get; }
 
         /// <summary>
-        /// Receiver for a specific mod address
+        /// Listener for a specific mod address
         /// </summary>
-        public BaseReceiver()
+        public BaseListener()
         {
             RequestHandler = CreateHandler();
         }
 
         /// <summary>
-        /// Initializes the receiver that will fire when the "EqualMoneySplit.MoneyReceiver" message is sent
+        /// Initializes the listener that will fire when the "EqualMoneySplit.MoneyListener" message is sent
         /// </summary>
         /// <returns>The action to be performed when a response is received</returns>
         public abstract Action<object> CreateHandler();
