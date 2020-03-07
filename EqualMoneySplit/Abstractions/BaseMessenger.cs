@@ -43,7 +43,6 @@ namespace EqualMoneySplit.Abstractions
         /// <param name="recipient"></param>
         private void SendPayloadToFarmer(string address, object payload, long recipient)
         {
-            SendCoreMessageToFarmer(address, payload, recipient);
             EqualMoneyMod.Logger.Log("Messenger.SendMessageToFarmer() | Local farmer " + Game1.player.Name + " Is sending a message to " + address + " for " + Game1.getFarmer(recipient));
             EqualMoneyMod.SMAPI.Multiplayer.SendMessage(payload, address, new[] { EqualMoneyMod.SMAPI.Multiplayer.ModID }, recipient != -1 ? new[] { recipient } : null);
         }
