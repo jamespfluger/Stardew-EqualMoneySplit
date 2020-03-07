@@ -3,6 +3,7 @@ using EqualMoneySplit.Networking;
 using EqualMoneySplit.Networking.Communicators;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewValley;
 
 namespace EqualMoneySplit
 {

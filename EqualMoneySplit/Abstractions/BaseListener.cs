@@ -10,9 +10,9 @@ namespace EqualMoneySplit.Abstractions
     {
 
         /// <summary>
-        /// Action/Method that will be performed when a request is received
+        /// Action/Method that will be performed when a message is received
         /// </summary>
-        public Action<object> RequestHandler { get; set; }
+        public Action<object> MessageHandler { get; set; }
 
         /// <summary>
         /// Destination address the message will be received from
@@ -24,14 +24,14 @@ namespace EqualMoneySplit.Abstractions
         /// </summary>
         public BaseListener()
         {
-            RequestHandler = CreateHandler();
+            MessageHandler = CreateMessageHandler();
         }
 
         /// <summary>
         /// Initializes the listener that will fire when the "EqualMoneySplit.MoneyListener" message is sent
         /// </summary>
         /// <returns>The action to be performed when a response is received</returns>
-        public abstract Action<object> CreateHandler();
+        public abstract Action<object> CreateMessageHandler();
 
         /// <summary>
         /// Begins the process of checking for messages every game tick
@@ -57,7 +57,7 @@ namespace EqualMoneySplit.Abstractions
         public virtual void CheckForNewMessages(object sender = null, UpdateTickedEventArgs args = null)
         {
             foreach (NetworkMessage message in Network.Instance.RetrieveMessages(Address))
-                Task.Run(() => { RequestHandler(message.Payload); });
+                Task.Run(() => { MessageHandler(message.Payload); });
         }
     }
 }

@@ -23,7 +23,7 @@ namespace EqualMoneySplit.Networking.Communicators
         /// Initializes the listener that will fire when the "EqualMoneySplit.MoneyListener" message is sent
         /// </summary>
         /// <returns>The action to be performed when a response is received</returns>
-        public override Action<object> CreateHandler()
+        public override Action<object> CreateMessageHandler()
         {
             return delegate (object payload)
             {
