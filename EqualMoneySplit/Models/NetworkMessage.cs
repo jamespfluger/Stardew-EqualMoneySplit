@@ -18,9 +18,9 @@
         /// </summary>
         public long Sender { get; set; }
         /// <summary>
-        /// Destination receiver message will be sent to
+        /// Destination listener message will be sent to
         /// </summary>
-        public long Receiver { get; set; }
+        public long Listener { get; set; }
 
         /// <summary>
         /// Message that will be sent over Network
@@ -39,7 +39,7 @@
             this.Address = address;
             this.Payload = payload;
             this.Sender = sender;
-            this.Receiver = recipient;
+            this.Listener = recipient;
         }
     }
 }

@@ -47,7 +47,7 @@ namespace EqualMoneySplit.Networking
             message.Address = args.Type;
             message.Sender = Game1.getFarmer(args.FromPlayerID).UniqueMultiplayerID;
             message.Payload = args.ReadAs<object>();
-            message.Receiver = Game1.player.UniqueMultiplayerID;
+            message.Listener = Game1.player.UniqueMultiplayerID;
 
             Messages[args.Type].Add(message);
         }

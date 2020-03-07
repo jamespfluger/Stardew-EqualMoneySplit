@@ -7,23 +7,23 @@ using System;
 
 namespace EqualMoneySplit.Networking.Communicators
 {
-    public sealed class MoneyReceiver : BaseReceiver
+    public sealed class MoneyListener : BaseListener
     {
         /// <summary>
         /// Use static property to handle instance; only created once on day start in a single thread
         /// </summary>
-        public static BaseReceiver Instance { get; private set; } = new MoneyReceiver();
+        public static BaseListener Instance { get; private set; } = new MoneyListener();
 
         /// <summary>
         /// Destination address the message will be received from
         /// </summary>
-        public override string Address => Constants.ModReceiverAddress;
+        public override string Address => Constants.ModListenerAddress;
 
         /// <summary>
-        /// Initializes the receiver that will fire when the "EqualMoneySplit.MoneyReceiver" message is sent
+        /// Initializes the listener that will fire when the "EqualMoneySplit.MoneyListener" message is sent
         /// </summary>
         /// <returns>The action to be performed when a response is received</returns>
-        public override Action<object> CreateHandler()
+        public override Action<object> CreateMessageHandler()
         {
             return delegate (object payload)
             {
