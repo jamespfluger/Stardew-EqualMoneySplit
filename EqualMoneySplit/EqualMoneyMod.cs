@@ -1,9 +1,11 @@
-﻿using EqualMoneySplit.Events;
+﻿using EqualMoneySplit.Configuration;
+using EqualMoneySplit.Events;
 using EqualMoneySplit.Networking;
 using EqualMoneySplit.Networking.Communicators;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using System;
 
 namespace EqualMoneySplit
 {
@@ -21,10 +23,10 @@ namespace EqualMoneySplit
         /// </summary>
         public static IModHelper SMAPI { get; private set; }
 
-        // Initialize all event handler classes
-        private readonly InventoryEventHandlers inventoryChangedHandler = new InventoryEventHandlers();
-        private readonly GameLoopEventHandlers gameLoopHandler = new GameLoopEventHandlers();
-        private readonly SaveEventHandlers saveEventHandler = new SaveEventHandlers();
+        /// <summary>
+        /// User configuration specified in the config.json file
+        /// </summary>
+        public static UserConfig UserConfig { get; private set; }
         
         /// <summary>
         /// Checks if this is the first day the user is connecting for
@@ -45,20 +47,19 @@ namespace EqualMoneySplit
 
         private void FirstDayEventSubscriptions(object sender, DayStartedEventArgs args)
         {
-            if (isFirstDay && Context.IsMultiplayer)
+            if (!Context.IsMultiplayer)
             {
-                // Start any mod message listeners we need
-                StartListeners();
-
-                // Instantiate all events needed
-                SMAPI.Events.Player.InventoryChanged += inventoryChangedHandler.OnInventoryChanged;
-                SMAPI.Events.GameLoop.UpdateTicking += gameLoopHandler.OnUpdateTicking;
-                SMAPI.Events.GameLoop.DayStarted += gameLoopHandler.OnDayStartedHandler;
-                SMAPI.Events.GameLoop.DayEnding += gameLoopHandler.OnDayEndingHandler;
-                SMAPI.Events.GameLoop.Saving += saveEventHandler.OnSavingHandler;
-                SMAPI.Events.GameLoop.Saved += saveEventHandler.OnSavedHandler;
-
-                SMAPI.Events.Multiplayer.ModMessageReceived += Network.Instance.OnModMessageReceived;
+                Logger.Log("Multiplayer is not being used, but the mod is enabled.");
+            }
+            if (!Game1.player.useSeparateWallets)
+            {
+                Logger.Log("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!");
+                Game1.chatBox.addErrorMessage("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up!");
+                EventSubscriber.Instance.RemoveSubscriptions();
+            }
+            else if (isFirstDay)
+            {
+                EventSubscriber.Instance.AddSubscriptions();
 
                 // Start subscribing to the event of returning to the title
                 SMAPI.Events.GameLoop.ReturnedToTitle += ReturnToTitleEventUnsubcriptions;
@@ -71,41 +72,14 @@ namespace EqualMoneySplit
 
         private void ReturnToTitleEventUnsubcriptions(object sender, ReturnedToTitleEventArgs args)
         {
-            // Instantiate all events needed
-            SMAPI.Events.Player.InventoryChanged -= inventoryChangedHandler.OnInventoryChanged;
-            SMAPI.Events.GameLoop.UpdateTicking -= gameLoopHandler.OnUpdateTicking;
-            SMAPI.Events.GameLoop.DayStarted -= gameLoopHandler.OnDayStartedHandler;
-            SMAPI.Events.GameLoop.DayEnding -= gameLoopHandler.OnDayEndingHandler;
-            SMAPI.Events.GameLoop.Saving -= saveEventHandler.OnSavingHandler;
-            SMAPI.Events.GameLoop.Saved -= saveEventHandler.OnSavedHandler;
-
-            SMAPI.Events.Multiplayer.ModMessageReceived -= Network.Instance.OnModMessageReceived;
+            EventSubscriber.Instance.RemoveSubscriptions();
 
             // Re-add the first day event subscriptions
             SMAPI.Events.GameLoop.DayStarted += FirstDayEventSubscriptions;
             SMAPI.Events.GameLoop.ReturnedToTitle -= ReturnToTitleEventUnsubcriptions;
 
-            // Stop any mod message listeners we started
-            StopListeners();
-
             // If we exit to the menu, then we will need a new first day setup
             isFirstDay = true;
-        }
-
-        /// <summary>
-        /// Start any network listeners needed
-        /// </summary>
-        private void StartListeners()
-        {
-            MoneyListener.Instance.Start();
-        }
-
-        /// <summary>
-        /// Stop the listeners we started earlier
-        /// </summary>
-        private void StopListeners()
-        {
-            MoneyListener.Instance.Stop();
         }
     }
 }

@@ -16,10 +16,12 @@ namespace EqualMoneySplit.Networking
         /// Messages that will be sent or received
         /// </summary>
         public ConcurrentDictionary<string, List<NetworkMessage>> Messages { get; set; }
+
         /// <summary>
         /// Global instance of Network
         /// </summary>
         public static Network Instance { get { return network.Value; } }
+
         /// <summary>
         /// Local instance of the Network class loaded lazily
         /// </summary>
