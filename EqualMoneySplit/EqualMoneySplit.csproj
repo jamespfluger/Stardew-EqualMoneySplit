@@ -109,6 +109,7 @@
     <Compile Include="Abstractions\BaseEventHandlers.cs" />
     <Compile Include="Abstractions\BaseMessenger.cs" />
     <Compile Include="Abstractions\BaseListener.cs" />
+    <Compile Include="Configuration\UserConfig.cs" />
     <Compile Include="Events\EventSubscriber.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\MoneyPayload.cs" />

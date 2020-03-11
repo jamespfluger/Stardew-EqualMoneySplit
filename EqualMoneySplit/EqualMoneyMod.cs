@@ -39,6 +39,11 @@ namespace EqualMoneySplit
         /// <param name="helper"></param>
         public override void Entry(IModHelper helper)
         {
+            UserConfig = helper.ReadConfig<UserConfig>();
+
+            if (!UserConfig.Enabled)
+                return;
+
             Logger = base.Monitor;
             SMAPI = base.Helper;
 
