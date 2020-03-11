@@ -48,6 +48,15 @@ namespace EqualMoneySplit.Events
         /// <param name="args">Event arguments for the DayStarted event</param>
         public void OnDayStartedHandler(object sender, DayStartedEventArgs args)
         {
+            if (!Game1.player.useSeparateWallets)
+            {
+                EqualMoneyMod.Logger.Log("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!");
+                Game1.chatBox.addErrorMessage("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up!");
+                EventSubscriber.Instance.RemoveSubscriptions();
+
+                return;
+            }
+
             QuickLogMoney("GameLoopEventHandler | DayStarted");
 
             PersistantFarmerData.ShareToSend = 0;
