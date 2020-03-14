@@ -12,10 +12,12 @@ namespace EqualMoneySplit.Networking.Communicators
         /// <param name="newMoney">The amount of money for each farmer to receive</param>
         public void SendWalletNotification(int newMoney)
         {
-            MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.InventoryChanged);
-            base.SendCoreMessageToAllFarmers(Constants.ModListenerAddress, moneyData);
-
-            Game1.chatBox.addInfoMessage("You sent every player " + newMoney + "g.");
+            if (newMoney > 0)
+            {
+                MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.InventoryChanged);
+                base.SendCoreMessageToAllFarmers(Constants.ModListenerAddress, moneyData);
+                Game1.chatBox.addInfoMessage("You sent every player " + newMoney + "g.");
+            }
 
             EqualMoneyMod.Logger.Log("MoneyMessengerUtil.SendWalletNotification | Local farmer " + Game1.player.Name + " is sending " + newMoney + " to all farmers");
         }
@@ -26,10 +28,12 @@ namespace EqualMoneySplit.Networking.Communicators
         /// <param name="newMoney">The amount of money for each farmer to receive</param>
         public void SendShippingBinNotification(int newMoney)
         {
-            MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.EndOfDay);
-            base.SendCoreMessageToAllFarmers(Constants.ModListenerAddress, moneyData);
-
-            Game1.chatBox.addInfoMessage("You sent every player " + newMoney + "g.");
+            if (newMoney > 0)
+            {
+                MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.EndOfDay);
+                base.SendCoreMessageToAllFarmers(Constants.ModListenerAddress, moneyData);
+                Game1.chatBox.addInfoMessage("You sent every player " + newMoney + "g.");
+            }
 
             EqualMoneyMod.Logger.Log("MoneyMessengerUtil.SendShippingBinNotification | Local farmer " + Game1.player.Name + " is sending " + newMoney + " to all farmers");
         }

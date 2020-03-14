@@ -1,5 +1,4 @@
-﻿using EqualMoneySplit.Configuration;
-using EqualMoneySplit.Events;
+﻿using EqualMoneySplit.Events;
 using EqualMoneySplit.Networking;
 using EqualMoneySplit.Networking.Communicators;
 using StardewModdingAPI;
@@ -22,11 +21,6 @@ namespace EqualMoneySplit
         /// The SMAPI API used to integrate mods with the base Stardew Valley game
         /// </summary>
         public static IModHelper SMAPI { get; private set; }
-
-        /// <summary>
-        /// User configuration specified in the config.json file
-        /// </summary>
-        public static UserConfig UserConfig { get; private set; }
         
         /// <summary>
         /// Checks if this is the first day the user is connecting for
@@ -36,7 +30,7 @@ namespace EqualMoneySplit
         /// <summary>
         /// Entry point of EqualMoneyMod
         /// </summary>
-        /// <param name="helper"></param>
+        /// <param name="helper">SMAPI provided API for writing mods</param>
         public override void Entry(IModHelper helper)
         {
             Logger = base.Monitor;
@@ -51,7 +45,7 @@ namespace EqualMoneySplit
             {
                 Logger.Log("Multiplayer is not being used, but the mod is enabled.");
             }
-            if (!Game1.player.useSeparateWallets)
+            else if (!Game1.player.useSeparateWallets)
             {
                 Logger.Log("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!");
                 Game1.chatBox.addErrorMessage("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up!");
