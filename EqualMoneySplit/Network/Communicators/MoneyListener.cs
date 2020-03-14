@@ -27,7 +27,18 @@ namespace EqualMoneySplit.Networking.Communicators
         {
             return delegate (object payload)
             {
-                MoneyPayload networkMoneyData = JsonConvert.DeserializeObject<MoneyPayload>(((JObject)payload).ToString());
+                MoneyPayload networkMoneyData;
+
+                try
+                {
+                    networkMoneyData = JsonConvert.DeserializeObject<MoneyPayload>(((JObject)payload).ToString());
+                }
+                catch(Exception e)
+                {
+                    EqualMoneyMod.Logger.Log("Error deserializing received money payload: " + e.ToString(), StardewModdingAPI.LogLevel.Error);
+                    throw;                
+                }
+
                 EqualMoneyMod.Logger.Log("MoneyMessengerUtil.ReceivingMoney | Local farmer " + Game1.player.Name + " is receiving " + networkMoneyData.Money + " from " + networkMoneyData.Name);
                 EqualMoneyMod.Logger.Log("MoneyMessengerUtil.ReceivingMoney | Local farmer " + Game1.player.Name + " previously had " + Game1.player.Money + " and will now have " + (Game1.player.Money + networkMoneyData.Money));
 
