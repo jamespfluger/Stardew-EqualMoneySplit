@@ -50,7 +50,7 @@ namespace EqualMoneySplit.Events
         {
             if (!Game1.player.useSeparateWallets)
             {
-                EqualMoneyMod.Logger.Log("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!");
+                EqualMoneyMod.Logger.Log("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!", StardewModdingAPI.LogLevel.Error);
                 Game1.chatBox.addErrorMessage("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up!");
                 EventSubscriber.Instance.RemoveSubscriptions();
 
