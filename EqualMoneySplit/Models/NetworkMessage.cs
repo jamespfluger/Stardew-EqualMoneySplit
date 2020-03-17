@@ -9,14 +9,17 @@
         /// Destination address the message will be sent to
         /// </summary>
         public string Address { get; set; }
+
         /// <summary>
         /// Payload to be delivered
         /// </summary>
         public object Payload { get; set; }
+
         /// <summary>
         /// Farmer sending the message
         /// </summary>
         public long Sender { get; set; }
+
         /// <summary>
         /// Destination listener message will be sent to
         /// </summary>

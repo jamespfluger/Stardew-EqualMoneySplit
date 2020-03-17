@@ -17,6 +17,6 @@
         /// <summary>
         /// Base address mods send/listen to
         /// </summary>
-        public static string ModListenerAddress { get; private set; } = "EqualMoneySplit.Listener";
+        public static string ModListenerAddress { get; private set; } = "EqualMoneySplit.Address.MoneySplit";
     }
 }

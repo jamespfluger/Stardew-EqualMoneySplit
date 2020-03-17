@@ -17,7 +17,7 @@ namespace EqualMoneySplit.Utils
         {
             int numberOfFarmers = Game1.getOnlineFarmers().Count;
             int moneyPerPlayer = (int)Math.Ceiling(Convert.ToDouble(totalNewMoney) / numberOfFarmers);
-            EqualMoneyMod.Logger.Log("MoneySplitUtil.GetPerPlayerShare() | Each player will receive: " + moneyPerPlayer);
+            EqualMoneyMod.Logger.Log("Each player will receive: " + moneyPerPlayer);
             return moneyPerPlayer;
         }
 
@@ -29,7 +29,7 @@ namespace EqualMoneySplit.Utils
         public static void CorrectLocalPlayer(int totalNewMoney, int moneyPerPlayer)
         {
             // Update the current farmer's money  |  Curr = Curr - (Split Share * (Number of Farmers-1))
-            EqualMoneyMod.Logger.Log("MoneySplitUtil.CorrectLocalPlayer() | Local farmer " + Game1.player.Name + " => (" + Game1.player.Money   + " - " + totalNewMoney + ") + " + moneyPerPlayer + " = " + (Game1.player.Money - totalNewMoney + moneyPerPlayer));
+            EqualMoneyMod.Logger.Log("Local farmer " + Game1.player.Name + " => (" + Game1.player.Money   + " - " + totalNewMoney + ") + " + moneyPerPlayer + " = " + (Game1.player.Money - totalNewMoney + moneyPerPlayer));
             Game1.player.Money = Game1.player.Money - totalNewMoney + moneyPerPlayer;
         }
     }
