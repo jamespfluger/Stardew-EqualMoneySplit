@@ -111,7 +111,7 @@
     <Compile Include="MoneyNetwork\MoneyPayload.cs" />
     <Compile Include="Network\Communicators\Messenger.cs" />
     <Compile Include="Network\Communicators\Listener.cs" />
-    <Compile Include="Utils\EventSubscriber.cs" />
+    <Compile Include="Events\EventSubscriber.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="EqualMoneyMod.cs" />
     <Compile Include="Events\GameLoopEventHandlers.cs" />
