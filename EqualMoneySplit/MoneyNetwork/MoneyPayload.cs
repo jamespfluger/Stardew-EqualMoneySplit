@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using EqualMoneySplit.Models;
+using Newtonsoft.Json;
 
-namespace EqualMoneySplit.Models
+namespace EqualMoneySplit.MoneyNetwork
 {
     /// <summary>
     /// Context of Player/Money to be sent to other players

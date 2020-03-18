@@ -1,5 +1,5 @@
 ﻿using EqualMoneySplit.Models;
-using EqualMoneySplit.Networking.Communicators;
+using EqualMoneySplit.MoneyNetwork;
 using EqualMoneySplit.Utils;
 using StardewModdingAPI.Events;
 using StardewValley;

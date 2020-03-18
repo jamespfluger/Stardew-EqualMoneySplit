@@ -1,10 +1,7 @@
 ﻿using EqualMoneySplit.Events;
-using EqualMoneySplit.Networking;
-using EqualMoneySplit.Networking.Communicators;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using System;
 
 namespace EqualMoneySplit
 {
@@ -39,6 +36,9 @@ namespace EqualMoneySplit
             SMAPI.Events.GameLoop.DayStarted += FirstDayEventSubscriptions;
         }
 
+        /// <summary>
+        /// Subscribes to the events on the first day of any game session
+        /// </summary>
         private void FirstDayEventSubscriptions(object sender, DayStartedEventArgs args)
         {
             if (!Context.IsMultiplayer)
@@ -47,8 +47,8 @@ namespace EqualMoneySplit
             }
             else if (!Game1.player.useSeparateWallets)
             {
-                Logger.Log("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!");
-                Game1.chatBox.addErrorMessage("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up!");
+                Logger.Log("WARNING: EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!");
+                Game1.chatBox.addErrorMessage("WARNING: EqualMoneySplit cannot be run unless individual wallets are set up!");
                 EventSubscriber.Instance.RemoveSubscriptions();
             }
             else if (isFirstDay)
@@ -64,6 +64,9 @@ namespace EqualMoneySplit
             }
         }
 
+        /// <summary>
+        /// Removes event subscriptions when the player returns to the title
+        /// </summary>
         private void ReturnToTitleEventUnsubcriptions(object sender, ReturnedToTitleEventArgs args)
         {
             EventSubscriber.Instance.RemoveSubscriptions();

@@ -1,6 +1,5 @@
-﻿using EqualMoneySplit.Models;
+﻿using EqualMoneySplit.Networking.Models;
 using StardewModdingAPI.Events;
-using StardewValley;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -13,9 +12,9 @@ namespace EqualMoneySplit.Networking
     public class Network
     {
         /// <summary>
-        /// Messages that will be sent or received
+        /// Messages that have been received
         /// </summary>
-        public ConcurrentDictionary<string, List<NetworkMessage>> Messages { get; set; }
+        public ConcurrentDictionary<string, List<Message>> ReceivedMessages { get; set; }
 
         /// <summary>
         /// Global instance of Network
@@ -32,7 +31,7 @@ namespace EqualMoneySplit.Networking
         /// </summary>
         public Network()
         {
-            Messages = new ConcurrentDictionary<string, List<NetworkMessage>>();
+            ReceivedMessages = new ConcurrentDictionary<string, List<Message>>();
         }
 
         /// <summary>
@@ -42,16 +41,10 @@ namespace EqualMoneySplit.Networking
         /// <param name="args">Event arguments for the ModMessageReceived event</param>
         public void OnModMessageReceived(object sender, ModMessageReceivedEventArgs args)
         {
-            if (!Messages.ContainsKey(args.Type))
-                Messages.TryAdd(args.Type, new List<NetworkMessage>());
+            Message message = args.ReadAs<Message>();
 
-            NetworkMessage message = new NetworkMessage();
-            message.Address = args.Type;
-            message.Sender = Game1.getFarmer(args.FromPlayerID).UniqueMultiplayerID;
-            message.Payload = args.ReadAs<object>();
-            message.Listener = Game1.player.UniqueMultiplayerID;
-
-            Messages[args.Type].Add(message);
+            ReceivedMessages.TryAdd(args.Type, new List<Message>());
+            ReceivedMessages[args.Type].Add(message);
         }
 
         /// <summary>
@@ -60,17 +53,17 @@ namespace EqualMoneySplit.Networking
         /// <param name="address">Destination address to check for message</param>
         /// <param name="sender">ID of Farmer that sent a message</param>
         /// <returns></returns>
-        public IEnumerable<NetworkMessage> RetrieveMessages(string address, long sender = -1)
+        public IEnumerable<Message> RetrieveMessages(string address, long sender = -1)
         {
-            Messages.TryAdd(address, new List<NetworkMessage>());
+            ReceivedMessages.TryAdd(address, new List<Message>());
 
-            List<NetworkMessage> messages = new List<NetworkMessage>(Messages[address]);
+            List<Message> messages = new List<Message>(ReceivedMessages[address]);
 
-            foreach (NetworkMessage message in messages)
+            foreach (Message message in messages)
             {
                 if (sender == -1 || sender == message.Sender)
                 {
-                    Network.Instance.Messages[address].Remove(message);
+                    Network.Instance.ReceivedMessages[address].Remove(message);
                     yield return message;
                 }
             }

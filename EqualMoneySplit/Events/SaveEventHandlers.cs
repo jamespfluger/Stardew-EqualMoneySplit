@@ -1,15 +1,15 @@
-﻿using EqualMoneySplit.Abstractions;
-using EqualMoneySplit.Models;
-using EqualMoneySplit.Networking.Communicators;
+﻿using EqualMoneySplit.Models;
+using EqualMoneySplit.MoneyNetwork;
 using EqualMoneySplit.Utils;
 using StardewModdingAPI.Events;
+using StardewValley;
 
 namespace EqualMoneySplit.Events
 {
     /// <summary>
     /// Handles events related to when the game saves
     /// </summary>
-    public class SaveEventHandlers : BaseEventHandlers
+    public class SaveEventHandlers
     {
         /// <summary>
         /// Corrects the local Farmer's money before the save begins to occur
@@ -19,9 +19,9 @@ namespace EqualMoneySplit.Events
         /// <param name="args">Event arguments for the Saving event</param>
         public void OnSavingHandler(object sender, SavingEventArgs args)
         {
-            QuickLogMoney("SaveEventHandler | Saving");
+            EqualMoneyMod.Logger.Log("Saving | " + Game1.player.Name + " money:" + Game1.player.Money);
 
-            // Correct the local player's money after they have
+            // Correct the local player's money after they sent their mod messages out
             MoneySplitUtil.CorrectLocalPlayer(PersistantFarmerData.ShippingBinMoney, PersistantFarmerData.ShareToSend);
             
             // Force the listener to check for unhandled messages
@@ -35,7 +35,7 @@ namespace EqualMoneySplit.Events
         /// <param name="args">Event arguments for the Saved event</param>
         public void OnSavedHandler(object sender, SavedEventArgs args)
         {
-            QuickLogMoney("SaveEventHandler | Saved");
+            EqualMoneyMod.Logger.Log("Saved | " + Game1.player.Name + " money:" + Game1.player.Money);
         }
 
     }

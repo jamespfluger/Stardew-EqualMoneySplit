@@ -12,7 +12,7 @@ namespace EqualMoneySplit.Utils
         /// Calculates the equal amount of Money each Farmer will receive
         /// </summary>
         /// <param name="totalNewMoney">The amount of money to be divided equally</param>
-        /// <returns>An event amount each Farmer will receive from the share</returns>
+        /// <returns>The share each Farmer will receive from the total</returns>
         public static int GetPerPlayerShare(int totalNewMoney)
         {
             int numberOfFarmers = Game1.getOnlineFarmers().Count;
