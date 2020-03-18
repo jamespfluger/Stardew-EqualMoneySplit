@@ -106,21 +106,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstractions\BaseEventHandlers.cs" />
-    <Compile Include="Abstractions\BaseMessenger.cs" />
-    <Compile Include="Abstractions\BaseListener.cs" />
+    <Compile Include="MoneyNetwork\MoneyListener.cs" />
+    <Compile Include="MoneyNetwork\MoneyMessenger.cs" />
+    <Compile Include="MoneyNetwork\MoneyPayload.cs" />
+    <Compile Include="Network\Communicators\Messenger.cs" />
+    <Compile Include="Network\Communicators\Listener.cs" />
     <Compile Include="Events\EventSubscriber.cs" />
     <Compile Include="Models\Constants.cs" />
-    <Compile Include="Models\MoneyPayload.cs" />
-    <Compile Include="Network\Communicators\MoneyListener.cs" />
     <Compile Include="EqualMoneyMod.cs" />
     <Compile Include="Events\GameLoopEventHandlers.cs" />
     <Compile Include="Events\InventoryEventHandlers.cs" />
     <Compile Include="Events\SaveEventHandlers.cs" />
     <Compile Include="Models\PersistantFarmerData.cs" />
-    <Compile Include="Network\Communicators\MoneyMessenger.cs" />
     <Compile Include="Network\Network.cs" />
-    <Compile Include="Models\NetworkMessage.cs" />
+    <Compile Include="Network\Models\Message.cs" />
     <Compile Include="Utils\ItemValueUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\MoneySplitUtil.cs" />

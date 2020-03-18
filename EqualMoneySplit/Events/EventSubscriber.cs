@@ -1,10 +1,7 @@
-﻿using EqualMoneySplit.Networking;
-using EqualMoneySplit.Networking.Communicators;
+﻿using EqualMoneySplit.Events;
+using EqualMoneySplit.MoneyNetwork;
+using EqualMoneySplit.Networking;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EqualMoneySplit.Events
 {
@@ -36,6 +33,9 @@ namespace EqualMoneySplit.Events
             saveEventHandler = new SaveEventHandlers();
         }
 
+        /// <summary>
+        /// Subscribe to the events that we will always be listening to
+        /// </summary>
         public void AddSubscriptions()
         {
             // Start any mod message listeners we need
@@ -52,6 +52,9 @@ namespace EqualMoneySplit.Events
             EqualMoneyMod.SMAPI.Events.Multiplayer.ModMessageReceived += Network.Instance.OnModMessageReceived;
         }
 
+        /// <summary>
+        /// Removes the event listeners from the core SMAPI API
+        /// </summary>
         public void RemoveSubscriptions()
         {
             // Remove events that shouldn't be triggering

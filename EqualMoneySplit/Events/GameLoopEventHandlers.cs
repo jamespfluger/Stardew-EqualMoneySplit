@@ -1,6 +1,5 @@
-﻿using EqualMoneySplit.Abstractions;
-using EqualMoneySplit.Models;
-using EqualMoneySplit.Networking.Communicators;
+﻿using EqualMoneySplit.Models;
+using EqualMoneySplit.MoneyNetwork;
 using EqualMoneySplit.Utils;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -10,7 +9,7 @@ namespace EqualMoneySplit.Events
     /// <summary>
     /// Handles events related to game loops
     /// </summary>
-    public class GameLoopEventHandlers : BaseEventHandlers
+    public class GameLoopEventHandlers
     {
         /// <summary>
         /// Updates the local Farmer's stored money value before the game state is updated (~60 times per second)
@@ -30,15 +29,18 @@ namespace EqualMoneySplit.Events
         /// <param name="args">Event arguments for the DayEndingEvent event</param>
         public void OnDayEndingHandler(object sender, DayEndingEventArgs args)
         {
-            QuickLogMoney("GameLoopEventHandler | DayEnding");
+            EqualMoneyMod.Logger.Log("DayEnding | " + Game1.player.Name + " money:" + Game1.player.Money);
 
-            // Calculate all money that will be received from the shipping bin
+            // Calculate all money that will be earned from the shipping bin
             PersistantFarmerData.ShippingBinMoney = ItemValueUtil.CalculateItemCollectionValue(Game1.player.personalShippingBin);
             PersistantFarmerData.ShareToSend = MoneySplitUtil.GetPerPlayerShare(PersistantFarmerData.ShippingBinMoney);
 
-            // Always send a notification, even if no money has changed
-            MoneyMessenger moneyMessenger = new MoneyMessenger();
-            moneyMessenger.SendShippingBinNotification(PersistantFarmerData.ShareToSend);
+            // Only send a notification if money has been earned
+            if (PersistantFarmerData.ShareToSend != 0)
+            {
+                MoneyMessenger moneyMessenger = new MoneyMessenger();
+                moneyMessenger.SendShippingBinNotification(PersistantFarmerData.ShareToSend);
+            }
         }
 
         /// <summary>
@@ -57,7 +59,7 @@ namespace EqualMoneySplit.Events
                 return;
             }
 
-            QuickLogMoney("GameLoopEventHandler | DayStarted");
+            EqualMoneyMod.Logger.Log("DayStarted | " + Game1.player.Name + " money:" + Game1.player.Money);
 
             PersistantFarmerData.ShareToSend = 0;
             PersistantFarmerData.ShippingBinMoney = 0;
