@@ -15,9 +15,9 @@ namespace EqualMoneySplit.MoneyNetwork
             MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.InventoryChanged);
             base.SendRequestToAllFarmers(Constants.MoneySplitListenerAddress, moneyData);
 
-            Game1.chatBox.addInfoMessage("You sent every player " + newMoney + "g.");
+            Game1.chatBox.addInfoMessage($"You sent every player {newMoney}g.");
 
-            EqualMoneyMod.Logger.Log("Local farmer " + Game1.player.Name + " is sending " + newMoney + " to all farmers (at a shop)");
+            EqualMoneyMod.Logger.Log($"Local farmer {Game1.player.Name} is sending {newMoney} to all farmers (at a shop)");
         }
 
         /// <summary>
@@ -29,9 +29,9 @@ namespace EqualMoneySplit.MoneyNetwork
             MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.EndOfDay);
             base.SendMessageToAllFarmers(Constants.MoneySplitListenerAddress, moneyData);
 
-            Game1.chatBox.addInfoMessage("You sent every player " + newMoney + "g.");
+            Game1.chatBox.addInfoMessage($"You sent every player {newMoney}g.");
 
-            EqualMoneyMod.Logger.Log("Local farmer " + Game1.player.Name + " is sending " + newMoney + " to all farmers (through the shipping bin)");
+            EqualMoneyMod.Logger.Log($"Local farmer {Game1.player.Name} is sending {newMoney} to all farmers (through the shipping bin)");
         }
     }
 }

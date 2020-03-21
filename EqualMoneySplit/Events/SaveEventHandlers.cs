@@ -19,7 +19,7 @@ namespace EqualMoneySplit.Events
         /// <param name="args">Event arguments for the Saving event</param>
         public void OnSavingHandler(object sender, SavingEventArgs args)
         {
-            EqualMoneyMod.Logger.Log("Saving | " + Game1.player.Name + " money:" + Game1.player.Money);
+            EqualMoneyMod.Logger.Log($"Saving | {Game1.player.Name} has {Game1.player.Money} money");
 
             // Correct the local player's money after they sent their mod messages out
             MoneySplitUtil.CorrectLocalPlayer(PersistantFarmerData.ShippingBinMoney, PersistantFarmerData.ShareToSend);
@@ -35,7 +35,7 @@ namespace EqualMoneySplit.Events
         /// <param name="args">Event arguments for the Saved event</param>
         public void OnSavedHandler(object sender, SavedEventArgs args)
         {
-            EqualMoneyMod.Logger.Log("Saved | " + Game1.player.Name + " money:" + Game1.player.Money);
+            EqualMoneyMod.Logger.Log($"Saved | {Game1.player.Name} has {Game1.player.Money} money");
         }
 
     }
