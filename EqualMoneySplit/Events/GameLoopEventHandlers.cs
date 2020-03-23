@@ -29,7 +29,7 @@ namespace EqualMoneySplit.Events
         /// <param name="args">Event arguments for the DayEndingEvent event</param>
         public void OnDayEndingHandler(object sender, DayEndingEventArgs args)
         {
-            EqualMoneyMod.Logger.Log("DayEnding | " + Game1.player.Name + " money:" + Game1.player.Money);
+            EqualMoneyMod.Logger.Log($"DayEnding | {Game1.player.Name} has {Game1.player.Money} money");
 
             // Calculate all money that will be earned from the shipping bin
             PersistantFarmerData.ShippingBinMoney = ItemValueUtil.CalculateItemCollectionValue(Game1.player.personalShippingBin);
@@ -52,14 +52,14 @@ namespace EqualMoneySplit.Events
         {
             if (!Game1.player.useSeparateWallets)
             {
-                EqualMoneyMod.Logger.Log("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!", StardewModdingAPI.LogLevel.Error);
+                EqualMoneyMod.Logger.Log("EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!", StardewModdingAPI.LogLevel.Warn);
                 Game1.chatBox.addErrorMessage("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up!");
                 EventSubscriber.Instance.RemoveSubscriptions();
 
                 return;
             }
 
-            EqualMoneyMod.Logger.Log("DayStarted | " + Game1.player.Name + " money:" + Game1.player.Money);
+            EqualMoneyMod.Logger.Log($"DayStarted | {Game1.player.Name} has {Game1.player.Money} money");
 
             PersistantFarmerData.ShareToSend = 0;
             PersistantFarmerData.ShippingBinMoney = 0;

@@ -34,19 +34,19 @@ namespace EqualMoneySplit.MoneyNetwork
                     object payload = message.Payload;
                     networkMoneyData = JsonConvert.DeserializeObject<MoneyPayload>(payload.ToString());
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     EqualMoneyMod.Logger.Log("Error deserializing received money payload: " + e.ToString(), StardewModdingAPI.LogLevel.Error);
                     throw;                
                 }
 
-                EqualMoneyMod.Logger.Log("Local farmer " + Game1.player.Name + " is receiving " + networkMoneyData.Money + " from " + networkMoneyData.Name);
-                EqualMoneyMod.Logger.Log("Local farmer " + Game1.player.Name + " previously had " + Game1.player.Money + " and will now have " + (Game1.player.Money + networkMoneyData.Money));
+                EqualMoneyMod.Logger.Log($"Local farmer {Game1.player.Name} is receiving {networkMoneyData.Money} from {networkMoneyData.Name}");
+                EqualMoneyMod.Logger.Log($"Local farmer {Game1.player.Name} previously had {Game1.player.Money} and will now have {Game1.player.Money + networkMoneyData.Money}");
 
                 if (networkMoneyData.EventContext == EventContext.InventoryChanged)
-                    Game1.showGlobalMessage(networkMoneyData.Name + " sent you " + networkMoneyData.Money + "g!");
+                    Game1.showGlobalMessage($"{networkMoneyData.Name} sent you {networkMoneyData.Money}g!");
                 else if (networkMoneyData.EventContext == EventContext.EndOfDay)
-                    Game1.chatBox.addInfoMessage(networkMoneyData.Name + " sent you " + networkMoneyData.Money + "g!");
+                    Game1.chatBox.addInfoMessage($"{networkMoneyData.Name} sent you {networkMoneyData.Money}g!");
                 
                 Game1.player.Money += networkMoneyData.Money;
 

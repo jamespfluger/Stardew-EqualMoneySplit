@@ -69,7 +69,7 @@ namespace EqualMoneySplit.Networking.Communicators
         /// <param name="message">The message to be delivered to the farmer</param>
         private void SendCoreMessageToFarmer(Message message)
         {
-            EqualMoneyMod.Logger.Log("Local farmer " + Game1.player.Name + " is sending a message to " + message.Address + " for " + Game1.getFarmer(message.Recipient));
+            EqualMoneyMod.Logger.Log($"Local farmer {Game1.player.Name} is sending a message to {message.Address} for {Game1.getFarmer(message.Recipient)}");
             EqualMoneyMod.SMAPI.Multiplayer.SendMessage(message, message.Address, new[] { EqualMoneyMod.SMAPI.Multiplayer.ModID }, message.Recipient != -1 ? new[] { message.Recipient } : null);
         }
 
@@ -95,7 +95,7 @@ namespace EqualMoneySplit.Networking.Communicators
 
                 // Send the message to the farmer
                 SendCoreMessageToFarmer(message);
-                EqualMoneyMod.Logger.Log("Attempting to deliver message " + message.MessageId + " to " + message.Recipient);
+                EqualMoneyMod.Logger.Log($"Attempting to deliver message {message.MessageId} to {message.Recipient}");
 
                 // Hold execution until we find out if our message was actually received
                 int intervalsWaited = 0;
@@ -106,9 +106,9 @@ namespace EqualMoneySplit.Networking.Communicators
                 }
 
                 if (!hasReceivedAcknowledgement)
-                    EqualMoneyMod.Logger.Log("Message " + message.MessageId + " did not receive a response from " + message.Recipient);
+                    EqualMoneyMod.Logger.Log($"Message {message.MessageId} did not receive a response from {message.Recipient}");
                 else
-                    EqualMoneyMod.Logger.Log("Message " + message.MessageId + " was successfully delivered to " + message.Recipient);
+                    EqualMoneyMod.Logger.Log($"Message {message.MessageId} was successfully delivered to {message.Recipient}");
 
                 // We remove the event handler after we received the response
                 EqualMoneyMod.SMAPI.Events.Multiplayer.ModMessageReceived -= onIfMessageReceived;
