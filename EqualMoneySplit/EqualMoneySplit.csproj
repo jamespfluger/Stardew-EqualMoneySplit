@@ -106,6 +106,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\MultiplayerEventHandlers.cs" />
     <Compile Include="MoneyNetwork\MoneyListener.cs" />
     <Compile Include="MoneyNetwork\MoneyMessenger.cs" />
     <Compile Include="MoneyNetwork\MoneyPayload.cs" />

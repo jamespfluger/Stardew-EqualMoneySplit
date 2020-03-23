@@ -19,6 +19,7 @@ namespace EqualMoneySplit.Events
         private static readonly Lazy<EventSubscriber> lazyEventSubscriber = new Lazy<EventSubscriber>(() => new EventSubscriber());
 
         // Initialize all event handler classes
+        private readonly MultiplayerEventHandlers multiplayerEventHandlers;
         private readonly InventoryEventHandlers inventoryChangedHandler;
         private readonly GameLoopEventHandlers gameLoopHandler;
         private readonly SaveEventHandlers saveEventHandler;
@@ -28,6 +29,7 @@ namespace EqualMoneySplit.Events
         /// </summary>
         public EventSubscriber()
         {
+            multiplayerEventHandlers = new MultiplayerEventHandlers();
             inventoryChangedHandler = new InventoryEventHandlers();
             gameLoopHandler  = new GameLoopEventHandlers();
             saveEventHandler = new SaveEventHandlers();
@@ -42,6 +44,7 @@ namespace EqualMoneySplit.Events
             StartNetworkListeners();
 
             // Instantiate all events needed
+            EqualMoneyMod.SMAPI.Events.Multiplayer.PeerContextReceived += multiplayerEventHandlers.OnPeerContextReceived;
             EqualMoneyMod.SMAPI.Events.Player.InventoryChanged += inventoryChangedHandler.OnInventoryChanged;
             EqualMoneyMod.SMAPI.Events.GameLoop.UpdateTicking += gameLoopHandler.OnUpdateTicking;
             EqualMoneyMod.SMAPI.Events.GameLoop.DayStarted += gameLoopHandler.OnDayStartedHandler;
@@ -58,6 +61,7 @@ namespace EqualMoneySplit.Events
         public void RemoveSubscriptions()
         {
             // Remove events that shouldn't be triggering
+            EqualMoneyMod.SMAPI.Events.Multiplayer.PeerContextReceived -= multiplayerEventHandlers.OnPeerContextReceived;
             EqualMoneyMod.SMAPI.Events.Player.InventoryChanged -= inventoryChangedHandler.OnInventoryChanged;
             EqualMoneyMod.SMAPI.Events.GameLoop.UpdateTicking -= gameLoopHandler.OnUpdateTicking;
             EqualMoneyMod.SMAPI.Events.GameLoop.DayStarted -= gameLoopHandler.OnDayStartedHandler;
