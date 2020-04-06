@@ -49,8 +49,6 @@ namespace EqualMoneySplit.MoneyNetwork
                     Game1.chatBox.addInfoMessage($"{networkMoneyData.Name} sent you {networkMoneyData.Money}g!");
                 
                 Game1.player.Money += networkMoneyData.Money;
-
-                SendAcknowledgement(message);
             };
         }
     }

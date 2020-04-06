@@ -1,5 +1,4 @@
-﻿using EqualMoneySplit.Events;
-using EqualMoneySplit.MoneyNetwork;
+﻿using EqualMoneySplit.MoneyNetwork;
 using EqualMoneySplit.Networking;
 using System;
 
