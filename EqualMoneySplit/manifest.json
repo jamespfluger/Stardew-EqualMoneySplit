@@ -1,11 +1,11 @@
 {
     "Name":  "Equal Money Split",
     "Author":  "The Fluffy Robot",
-    "Version":  "1.0.0-rc.2",
+    "Version":  "1.0.0-rc.3",
     "Description":  "Splits each the earnings of every item between all connected players.",
     "UniqueID":  "TheFluffyRobot.EqualMoneySplit",
     "EntryDll":  "EqualMoneySplit.dll",
-    "MinimumApiVersion":  "3.0.0",
+    "MinimumApiVersion":  "3.4.1",
     "UpdateKeys":  [
                        "GitHub:jamespfluger/EqualMoneySplit"
                    ]

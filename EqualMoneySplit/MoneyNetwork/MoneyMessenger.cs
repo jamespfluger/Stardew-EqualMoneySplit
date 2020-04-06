@@ -13,7 +13,7 @@ namespace EqualMoneySplit.MoneyNetwork
         public void SendWalletNotification(int newMoney)
         {
             MoneyPayload moneyData = new MoneyPayload(newMoney, Game1.player.Name, EventContext.InventoryChanged);
-            base.SendRequestToAllFarmers(Constants.MoneySplitListenerAddress, moneyData);
+            base.SendMessageToAllFarmers(Constants.MoneySplitListenerAddress, moneyData);
 
             Game1.chatBox.addInfoMessage($"You sent every player {newMoney}g.");
 
