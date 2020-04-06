@@ -58,12 +58,5 @@ namespace EqualMoneySplit.Networking.Communicators
             foreach (Message message in Network.Instance.RetrieveMessages(Address))
                 Task.Run(() => { MessageHandler(message); });
         }
-         
-        public virtual void SendAcknowledgement(Message originalMessage)
-        {
-            Message acknowledgement = new Message(originalMessage.MessageId, originalMessage.MessageId, originalMessage.Sender);
-            EqualMoneyMod.Logger.Log($"Sending acknowledgement of {originalMessage.MessageId} back to to {originalMessage.Sender}");
-            EqualMoneyMod.SMAPI.Multiplayer.SendMessage(acknowledgement, originalMessage.MessageId, new[] { EqualMoneyMod.SMAPI.Multiplayer.ModID }, new[] { originalMessage.Sender } );
-        }
     }
 }
