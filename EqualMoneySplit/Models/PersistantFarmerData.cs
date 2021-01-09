@@ -13,7 +13,7 @@
         /// <summary>
         /// Money the local Farmer had when the day began ending
         /// </summary>
-        public static int ShippingBinMoney { get; set; }
+        public static int PersonalShippingBinsMoney { get; set; }
 
         /// <summary>
         /// Money the local Farmer will send to other connected Farmer's
