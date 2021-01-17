@@ -3,6 +3,7 @@ using System.Linq;
 using EqualMoneySplit.Models;
 using EqualMoneySplit.MoneyNetwork;
 using EqualMoneySplit.Utils;
+using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Objects;
@@ -57,14 +58,8 @@ namespace EqualMoneySplit.Events
         /// <param name="args">Event arguments for the DayStarted event</param>
         public void OnDayStartedHandler(object sender, DayStartedEventArgs args)
         {
-            if (!Game1.player.useSeparateWallets)
-            {
-                EqualMoneyMod.Logger.Log("EqualMoneySplit cannot be run unless individual wallets are set up! You must either disable the mod or set up individual wallets!", StardewModdingAPI.LogLevel.Warn);
-                Game1.chatBox.addErrorMessage("ERROR: EqualMoneySplit cannot be run unless individual wallets are set up!");
-                EventSubscriber.Instance.RemoveSubscriptions();
-
+            if (!EventSubscriber.Instance.TrySetEventSubscriptions())
                 return;
-            }
 
             EqualMoneyMod.Logger.Log($"DayStarted | {Game1.player.Name} has {Game1.player.Money} money");
 
