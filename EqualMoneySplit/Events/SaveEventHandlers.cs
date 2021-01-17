@@ -27,16 +27,5 @@ namespace EqualMoneySplit.Events
             // Force the listener to check for unhandled messages
             MoneyListener.Instance.CheckForNewMessages();
         }
-
-        /// <summary>
-        /// Handles the event raised after the game is saved
-        /// </summary>
-        /// <param name="sender">The sender of the Saved event</param>
-        /// <param name="args">Event arguments for the Saved event</param>
-        public void OnSavedHandler(object sender, SavedEventArgs args)
-        {
-            EqualMoneyMod.Logger.Log($"Saved | {Game1.player.Name} has {Game1.player.Money} money");
-        }
-
     }
 }
